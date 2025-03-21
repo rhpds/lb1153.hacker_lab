@@ -64,7 +64,7 @@
     name: openshift-gitops
     patch:
       - op: add
-        path: /spec/extraConfig/accounts.user1
+        path: /spec/extraConfig/user1
         value: login
   loop: "{{ range(0, argo_customize_num_users | int, 1) | list }}"
   loop_control:
