@@ -7,7 +7,7 @@
     name: gitea
   register: r_route
 
-- name: Set stackrox endpoint and url
+- name: Set Gitea endpoint and url
   set_fact:
     gitea_customize_gitea_endpoint: https://{{ r_route.resources[0].spec.host }}
 
@@ -26,6 +26,6 @@
       {
       "clone_addr": "{{ gitea_customize_customers_app_repo_url }}",
       "repo_name": "lb1153-customers-app",
-      "repo_owner": "gitea_customize_gitea_admin_user",
+      "repo_owner": "{{ gitea_customize_gitea_admin_user }}",
       "private": false
       }
