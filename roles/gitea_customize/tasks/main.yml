@@ -20,6 +20,7 @@
     force_basic_auth: true
     validate_certs: false
     body_format: json
+    status_code: 201
     headers:
       Content-Type: application/json
     body: >-
