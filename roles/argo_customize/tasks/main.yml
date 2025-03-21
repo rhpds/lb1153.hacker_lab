@@ -17,3 +17,8 @@
   loop_control:
     loop_var: n
 
+- name: Apply combined user templating
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('template', template_file) | from_yaml }}"
+    namespace: "{{ argo_customize_argo_namespace }}"
