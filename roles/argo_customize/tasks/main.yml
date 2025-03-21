@@ -57,4 +57,6 @@
         value: '[groups]'
   loop: "{{ range(0, argo_customize_num_users | int, 1) | list }}"
   loop_control:
-    loop_var: index
+    loop_var: n
+  vars:
+    index: "{{ index | int + 1 }}"
