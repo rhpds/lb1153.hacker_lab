@@ -4,6 +4,7 @@
     state: present
     definition: "{{ lookup('template', template_file) | from_yaml }}"
     namespace: "{{ argo_customize_argo_namespace }}"
+    merge_type: strategic-merge
   loop:
   - argocd-customers-repo.yml.j2
   - pod-role.yml.j2
