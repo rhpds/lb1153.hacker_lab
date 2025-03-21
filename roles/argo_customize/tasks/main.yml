@@ -59,4 +59,4 @@
   loop_control:
     loop_var: n
   vars:
-    index: "{{ index | int + 1 }}"
+    index: "{{ n | int + 1 }}"
