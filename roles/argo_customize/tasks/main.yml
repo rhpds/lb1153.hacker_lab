@@ -54,7 +54,7 @@
     patch:
       - op: add
         path: /spec/extraConfig
-        value: null
+        value: {}
 
 - name: Patch ArgoCD to add users
   kubernetes.core.k8s_json_patch:
