@@ -9,3 +9,5 @@
   - pod-role.yml.j2
   loop_control:
     loop_var: template_file
+  vars:
+    index: "{{ n | int + 1 }} "
