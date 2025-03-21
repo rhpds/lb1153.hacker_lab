@@ -1,0 +1,11 @@
+---
+- name: Apply user based templating
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('template', template_file) | from_yaml }}"
+    namespace: "{{ argo_customize_argo_namespace }}"
+  loop:
+  - argocd-customers-repo.yml.j2
+  - pod-role.yml.j2
+  loop_control:
+    loop_var: template_file

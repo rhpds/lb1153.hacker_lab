@@ -12,13 +12,8 @@
     argo_customize_gitea_endpoint: https://{{ r_route.resources[0].spec.host }}
 
 - name: Apply user based templating
-  kubernetes.core.k8s:
-    state: present
-    definition: "{{ lookup('template', item) | from_yaml }}"
-    namespace: "{{ argo_customize_argo_namespace }}"
-  loop:
-  - argocd-customers-repo.yml.j2
-  - pod-role.yml.j2
+  include_tasks: template_user_resources.yml
+  loop: "{{ range(0, argo_customize_num_users | int) | list }}"
   loop_control:
-    index_var: index
+    loop_var: index
 

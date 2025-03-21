@@ -1,5 +1,5 @@
 ---
-argo_customize_num_users: "{{ num_users | default(0) }}"
+argo_customize_num_users: "{{ num_users | default(2) }}"
 argo_customize_gitea_namespace: gitea
 argo_customize_argo_namespace: openshift-gitops
 argo_customize_gitea_user_name_base: user
