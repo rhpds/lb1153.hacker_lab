@@ -1,0 +1,5 @@
+---
+argo_customize_num_users: "{{ num_users | default(0) }}"
+argo_customize_gitea_namespace: gitea
+argo_customize_gitea_user_name_base: user
+argo_customize_gitea_user_password: MTg5OTIy

@@ -1,0 +1,23 @@
+---
+- name: Get Gitea route
+  k8s_info:
+    api_version: route.openshift.io/v1
+    kind: Route
+    namespace: "{{ argo_customize_gitea_namespace }}"
+    name: gitea
+  register: r_route
+
+- name: Set Gitea endpoint and url
+  set_fact:
+    argo_customize_gitea_endpoint: https://{{ r_route.resources[0].spec.host }}
+
+- name: Apply user based templating
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('template', item) | from_yaml }}"
+  loop:
+  - argocd-customers-repo.yml.j2
+  - pod-role.yml.j2
+  loop_control:
+    index_var: index
+
