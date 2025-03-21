@@ -1,0 +1,6 @@
+---
+gitea_customize_gitea_namespace: gitea
+gitea_customize_gitea_namespace: gitea
+gitea_customize_gitea_admin_user: gitea
+gitea_customize_gitea_admin_password: AVo2zmNf34KptdHe #notsecret
+gitea_customize_customers_app_repo_url: https://github.com/mthirion/lb1153-customers-app.git

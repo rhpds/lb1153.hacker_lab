@@ -1,0 +1,31 @@
+---
+- name: Get Gitea route
+  k8s_info:
+    api_version: route.openshift.io/v1
+    kind: Route
+    namespace: "{{ gitea_customize_gitea_namespace }}"
+    name: gitea
+  register: r_route
+
+- name: Set stackrox endpoint and url
+  set_fact:
+    gitea_customize_gitea_endpoint: https://{{ r_route.resources[0].spec.host }}
+
+- name: Import customers-app repository
+  uri:
+    url: "{{ gitea_customize_gitea_endpoint }}/api/v1/repos/migrate"
+    user: "{{ gitea_customize_gitea_admin_user }}"
+    password: "{{ gitea_customize_gitea_admin_password }}"
+    method: POST
+    force_basic_auth: true
+    validate_certs: false
+    body_format: json
+    headers:
+      Content-Type: application/json
+    body: >-
+      {
+      "clone_addr": "{{ gitea_customize_customers_app_repo_url }}",
+      "repo_name": "lb1153-customers-app",
+      "repo_owner": "gitea_customize_gitea_admin_user",
+      "private": false
+      }
