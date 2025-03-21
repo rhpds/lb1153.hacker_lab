@@ -6,7 +6,7 @@ subjects:
 {% for i in argo_customize_num_users %}
   - apiGroup: rbac.authorization.k8s.io
     kind: User
-    name: {{ argo_customize_gitea_user_name_base }}{{ i }}
+    name: {{ argo_customize_gitea_user_name_base }}{{ loop.index }}
 {% endfor %}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
