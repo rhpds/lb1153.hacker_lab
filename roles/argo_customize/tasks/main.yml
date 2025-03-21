@@ -45,7 +45,7 @@
         path: /spec/rbac/scopes
         value: '[groups]'
 
-- name: Patch ArgoCD to add users
+- name: Add extraConfig to ArgoCD
   kubernetes.core.k8s_json_patch:
     api_version: argoproj.io/v1beta1
     kind: ArgoCD
@@ -55,6 +55,17 @@
       - op: add
         path: /spec/extraConfig
         value: null
+
+- name: Patch ArgoCD to add users
+  kubernetes.core.k8s_json_patch:
+    api_version: argoproj.io/v1beta1
+    kind: ArgoCD
+    namespace: "{{ argo_customize_argo_namespace }}"
+    name: openshift-gitops
+    patch:
+      - op: add
+        path: /spec/extraConfig/accounts.user1
+        value: login
   loop: "{{ range(0, argo_customize_num_users | int, 1) | list }}"
   loop_control:
     loop_var: n
