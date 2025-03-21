@@ -52,7 +52,7 @@
     namespace: "{{ argo_customize_argo_namespace }}"
     name: openshift-gitops
     patch:
-      - op: replace
+      - op: add
         path: /spec/extraConfig/accounts.user{{ index }}
         value: login
   loop: "{{ range(0, argo_customize_num_users | int, 1) | list }}"
