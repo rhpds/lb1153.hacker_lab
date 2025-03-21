@@ -43,4 +43,4 @@
           {% endfor %}
       - op: replace
         path: /spec/rbac/scopes
-        vaulue: '[groups]'
+        value: '[groups]'
