@@ -22,3 +22,24 @@
     state: present
     definition: "{{ lookup('template', 'user-ns-rolebinding.yml.j2') | from_yaml }}"
     namespace: "{{ argo_customize_argo_namespace }}"
+
+- name: Patch ArgoCD to add users
+  kubernetes.core.k8s_json_patch:
+    kind: ArgoCD
+    namespace: "{{ argo_customize_argo_namespace }}"
+    name: openshift-gitops
+    patch:
+      - op: replace
+        path: /spec/rbac/defaultPolicy
+        value: ''
+      - op: replace
+        path: /spec/rbac/policy
+        value: |
+          g, system:cluster-admins, role:admin
+          {% for i in range(1, argo_customize_num_users | int + 1) %}
+          p, user{{ i }}, projects, get, user{{ i }}, allow
+          p, user{{ i }}, applications, get, user{{ i }}/*, allow
+          {% endfor %}
+      - op: replace
+        path: /spec/rbac/scopes
+        vaulue: '[groups]'
