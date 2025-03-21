@@ -25,6 +25,7 @@
 
 - name: Patch ArgoCD to add users
   kubernetes.core.k8s_json_patch:
+    api_version: argoproj.io/v1beta1
     kind: ArgoCD
     namespace: "{{ argo_customize_argo_namespace }}"
     name: openshift-gitops
