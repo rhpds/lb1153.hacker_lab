@@ -25,8 +25,10 @@
       Content-Type: application/json
     body: >-
       {
-      "clone_addr": "{{ gitea_customize_customers_app_repo_url }}",
-      "repo_name": "lb1153-customers-app",
+      "clone_addr": "{{ item.url }}",
+      "repo_name": "{{ item.name }}",
       "repo_owner": "{{ gitea_customize_gitea_admin_user }}",
       "private": false
       }
+  loop: "{{ gitea_customize_gitea_public_repos }}"
+
