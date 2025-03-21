@@ -54,7 +54,7 @@
     patch:
       - op: replace
         path: /spec/extraConfig/accounts.user{{ index }}
-        value: '[groups]'
+        value: login
   loop: "{{ range(0, argo_customize_num_users | int, 1) | list }}"
   loop_control:
     loop_var: n
