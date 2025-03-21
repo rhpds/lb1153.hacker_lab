@@ -7,6 +7,8 @@
   loop:
   - argocd-customers-repo.yml.j2
   - pod-role.yml.j2
+  - user-ns-rolebinding.yml.j2
+  - user-pod-rolebinding.yml.j2
   loop_control:
     loop_var: template_file
   vars:
