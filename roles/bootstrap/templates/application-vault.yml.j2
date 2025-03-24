@@ -5,12 +5,12 @@ metadata:
   namespace: openshift-gitops
 spec:
   destination:
-    namespace: {{ vault_customize_vault_namespace }}
+    namespace: {{ bootstrap_vault_namespace }}
     server: 'https://kubernetes.default.svc'
   project: default
   source:
     path: charts/hashicorp-vault
-    repoURL: {{ vault_customize_agnosticg_repo }}
+    repoURL: {{ bootstrap_agnosticg_repo }}
     targetRevision: HEAD
   syncPolicy:
     automated: {}
