@@ -2,7 +2,8 @@
 - name: Clone env-gitops
   ansible.builtin.git:
     repo: https://{{ gitea_username }}:{{ gitea_customize_gitea_user_password }}@{{
-          gitea_customize_gitea_endpoint }}/{{ gitea_username }}/env-gitops.git
+          gitea_customize_gitea_endpoint }}/{{ gitea_customize_gitea_admin_user }}/{{
+          gitea_username }}-env-gitops.git
     dest: /tmp
     single_branch: yes
     version: master
@@ -15,17 +16,18 @@
     flat: true
     fail_on_missing: true
 
-- name: Apply template /tmp/env-gitops/values.yaml
+- name: Apply template /tmp/{{ gitea_username }}-env-gitops/values.yaml
   ansible.builtin.template:
-    src: /tmp/env-gitops/values.yaml
-    dest: /tmp/env-gitops/values.yaml
+    src: /tmp/{{ gitea_username }}-env-gitops
+    dest: /tmp/{{ gitea_username }}-env-gitops
     mode: "0660"
     owner: "{{ gitea_customize_student_name }}"
 
 - name: Clone pipeline-gitops
   ansible.builtin.git:
     repo: https://{{ gitea_username }}:{{ gitea_customize_gitea_user_password }}@{{
-          gitea_customize_gitea_endpoint }}/{{ gitea_username }}/pipeline-gitops.git
+          gitea_customize_gitea_endpoint }}/{{ gitea_customize_gitea_admin_user }}/{{
+          gitea_username }}-pipeline-gitops.git
     dest: /tmp
     single_branch: yes
     version: master
@@ -33,14 +35,15 @@
 - name: Fetch values.yaml file from remote host
   run_once: true
   ansible.builtin.fetch:
-    src: /tmp/pipeline-gitops/values.yaml
-    dest: /tmp/pipeline-gitops/values.yaml
+    src: /tmp/{{ gitea_username }}-pipeline-gitops.git
+    dest: /tmp/{{ gitea_username }}-pipeline-gitops.git
     flat: true
     fail_on_missing: true
 
-- name: Apply template /tmp/pipeline-gitops/values.yaml
+- name: Apply template /tmp/{{ gitea_username }}-pipeline-gitops.git
   ansible.builtin.template:
-    src: /tmp/pipeline-gitops/values.yaml
-    dest: /tmp/pipeline-gitops/values.yaml
+    src: /tmp/{{ gitea_username }}-pipeline-gitops.git/values.yaml
+    dest: /tmp/{{ gitea_username }}-pipeline-gitops.git/values.yaml
     mode: "0660"
     owner: "{{ gitea_customize_student_name }}"
+

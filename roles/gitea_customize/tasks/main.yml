@@ -11,9 +11,9 @@
   set_fact:
     gitea_customize_gitea_endpoint: "{{ r_route.resources[0].spec.host }}"
 
-- name: Import customers-app repository
-  include_tasks: migrate_repos.yml
-  loop: "{{ gitea_customize_gitea_public_repos }}"
+# - name: Import customers-app repository
+#   include_tasks: migrate_repos.yml
+#   loop: "{{ gitea_customize_gitea_public_repos }}"
 
 - name: Apply user templating
   include_tasks: apply_user_templating.yml
