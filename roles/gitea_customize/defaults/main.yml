@@ -19,4 +19,4 @@ gitea_customize_gitea_num_users: "{{ num_users | default(3) }}"
 gitea_customize_gitea_user_name_base: user
 gitea_customize_gitea_user_password: MTg5OTIy
 gitea_customize_student_name: "{{ student_name | lab-user }}"
-guid: "{{ guid | default('wklnf') }}"
+guid: "wklnf"
