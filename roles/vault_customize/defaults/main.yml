@@ -19,3 +19,5 @@ ocp4_workload_quay_operator_catalog_snapshot_image: "{{ ocp4_workload_catalogsou
 ocp4_workload_quay_operator_catalog_snapshot_image_tag: "{{ ocp4_workload_catalogsource_tag }}"
 ocp4_workload_quay_operator_registry_admin_password: "{{ common_password }}"
 ACTION: provision
+
+guid: wklnf
