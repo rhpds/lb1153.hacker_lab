@@ -1,0 +1,48 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+        name: customers-promote-51
+        labels:
+          backstage.io/kubernetes-id: customers
+spec:
+        taskRunSpecs:
+        - pipelineTaskName: verify-enterprise-contract
+          taskServiceAccountName: job-runner
+        params:
+          - name: git-repo-url
+            value: https://{{ gitea_customize_gitea_endpoint }}/gitea/customers-app.git
+          - name: git-revision
+            value: main
+          - name: source-image
+            value: {{ gitea_customize_quay_server }}/quayadmin/customers
+          - name: destination-image
+            value: {{ gitea_customize_quay_server }}/quayadmin/customers
+          - name: source-image-tag
+            value: latest
+          - name: destination-image-tag
+            value: v1
+          - name: namespace
+            value: customers-user1
+          - name: git-host
+            value: {{ gitea_customize_gitea_endpoint }}
+          - name: git-owner
+            value: ""
+          - name: component-id
+            value: customers
+          - name: common-password-secret
+            value: common-password-secret
+          - name: argocd-host
+            value: {{ gitea_customize_argocd_endpoint }}
+          - name: policy-configuration
+            value: 'git::github.com/redhat-gpe/config//default'
+          - name: rekor-host
+            value: http://rekor-server.trusted-artifact-signer.svc
+          - name: tuf_mirror
+            value: http://tuf.trusted-artifact-signer.svc
+        pipelineRef:
+          name: customers-promote
+        serviceAccountName: image-pusher
+        timeout: 1h0m0s
+        workspaces:
+          - name: images-url
+            emptyDir: {}

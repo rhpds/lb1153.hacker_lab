@@ -17,3 +17,23 @@
     loop_var: template_file
   vars:
     index: "{{ n | int + 1 }}"
+
+- name: Run pipeline run
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('template', 'pipeline-run.yml.j2') | from_yaml }}"
+    namespace: "{{ argo_customize_argo_namespace }}"
+  vars:
+    index: "{{ n | int + 1 }}"
+
+- name: Pause
+  ansible.builtin.pause:
+    minutes: 2
+
+- name: Run promote
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('template', 'promote-run.yml.j2') | from_yaml }}"
+    namespace: "{{ argo_customize_argo_namespace }}"
+  vars:
+    index: "{{ n | int + 1 }}"

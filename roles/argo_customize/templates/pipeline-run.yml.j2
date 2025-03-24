@@ -1,0 +1,72 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  annotations:
+    chains.tekton.dev/signed: 'true'
+    chains.tekton.dev/transparency: 'http://rekor-server.trusted-artifact-signer.svc/api/v1/log/entries?logIndex=23'
+  name: pipelinerun-101
+  labels:
+    backstage.io/kubernetes-id: customers
+    tekton.dev/pipeline: customers-build
+    type: pipeline
+spec:
+  params:
+    - name: source-repo
+      value: https://{{ gitea_customize_gitea_endpoint }}/gitea/customers-app.git'
+    - name: source-branch
+      value: main
+    - name: output-image
+      value: {{ gitea_customize_quay_server }}/quayadmin/customers
+    - name: sonarqube-host-url
+      value: 'https://sonarqube-sonarqube.apps.CLUSTER_SUFFIX'
+    - name: sonarqube-project-key
+      value: user1-customers
+    - name: sonarqube-project-secret
+      value: customers-sonarqube-secret
+    - name: cyclonedx-host-url
+      value: 'https://cyclonedx-bom-repo-server-cyclonedx.apps.{{ gitea_customize_apps_subdomain }}'
+    - name: stackrox-endpoint
+      value: 'central-stackrox.apps.{{ gitea_customize_apps_subdomain }}:443'
+    - name: stackrox-secret
+      value: customers-stackrox-token
+    - name: git-host
+      value: {{ gitea_customize_gitea_endpoint }}
+    - name: git-owner
+      value: ""
+    - name: component-id
+      value: customers
+    - name: common-password-secret
+      value: common-password-secret
+    - name: rekor-url
+      value: 'http://rekor-server.trusted-artifact-signer.svc'
+    - name: tuf-mirror
+      value: 'http://tuf.trusted-artifact-signer.svc'
+    - name: certificate-identity
+      value: admin
+    - name: oidc-issuer
+      value: 'https://keycloak-rhsso.apps.{{ gitea_customize_apps_subdomain }}/auth/realms/openshift'
+  pipelineRef:
+    name: customers-build
+  taskRunTemplate:
+    serviceAccountName: pipeline
+  timeouts:
+    pipeline: 1h0m0s
+  workspaces:
+    - emptyDir: {}
+      name: reports
+    - name: source-folder
+      volumeClaimTemplate:
+        metadata:
+          creationTimestamp: null
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi
+        status: {}
+    - emptyDir: {}
+      name: maven-settings
+    - name: docker-config
+      secret:
+        secretName: customers-registry-creds
