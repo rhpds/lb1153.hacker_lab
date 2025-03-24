@@ -1,0 +1,10 @@
+---
+ocp4_username: system:admin
+become_override: false
+silent: false
+
+vault_customize_cloud_provider: "{{ cloud_provider | default('ec2') }}"
+vault_customize_agnosticg_repo: https://github.com/treddy08/agnosticg.git
+vault_customize_vault_namespace: vault
+vault_customize_external_secrets_version: 0.9.2
+vault_customize_backstage_namespace: backstage
