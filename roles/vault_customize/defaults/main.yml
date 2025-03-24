@@ -8,3 +8,14 @@ vault_customize_agnosticg_repo: https://github.com/treddy08/agnosticg.git
 vault_customize_vault_namespace: vault
 vault_customize_external_secrets_version: 0.9.2
 vault_customize_backstage_namespace: backstage
+
+ocp4_workload_quay_operator_namespace: quay-registry
+ocp4_workload_quay_operator_catalogsource_namespace: quay-registry
+ocp4_workload_quay_operator_channel: stable-3.13
+ocp4_workload_quay_operator_starting_csv: quay-operator.v3.13.1
+ocp4_workload_quay_operator_use_catalog_snapshot: true
+ocp4_workload_quay_operator_catalogsource_name: redhat-operators-snapshot-quay
+ocp4_workload_quay_operator_catalog_snapshot_image: "{{ ocp4_workload_catalogsource_image }}"
+ocp4_workload_quay_operator_catalog_snapshot_image_tag: "{{ ocp4_workload_catalogsource_tag }}"
+ocp4_workload_quay_operator_registry_admin_password: "{{ common_password }}"
+ACTION: provision
