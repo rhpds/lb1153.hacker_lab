@@ -8,7 +8,7 @@
 
 - name: Set Template variables
   ansible.builtin.set_fact:
-    gitea_customize_gitea_endpoint: gitea.{{ r_ingress_config.resources[0].spec.host }}
+    gitea_customize_gitea_endpoint: gitea.{{ r_ingress_config.resources[0].spec.domain }}
     gitea_customize_argocd_endpoint: argocd-server-{{ argo_customize_argo_namespace }}.{{
       r_ingress_config.resources[0].spec.domain }}
     gitea_customize_apps_subdomain: "{{ r_ingress_config.resources[0].spec.domain }}"
