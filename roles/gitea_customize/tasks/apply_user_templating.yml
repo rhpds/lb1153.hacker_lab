@@ -16,14 +16,14 @@
   run_once: true
   ansible.builtin.fetch:
     src: /tmp/{{ gitea_customize_lab_username }}-env-gitops/values.yaml
-    dest: /tmp/{{ gitea_customize_lab_username }}-env-gitops/values.yaml
+    dest: /tmp/dest/values.yaml
     flat: true
     fail_on_missing: true
 
 - name: Apply template /tmp/{{ gitea_customize_lab_username }}-env-gitops/values.yaml
   ansible.builtin.template:
-    src: /tmp/{{ gitea_customize_lab_username }}-env-gitops
-    dest: /tmp/{{ gitea_customize_lab_username }}-env-gitops
+    src: /tmp/dest/values.yaml
+    dest: /tmp/{{ gitea_customize_lab_username }}-env-gitops/values.yaml
     mode: "0660"
     owner: "{{ gitea_customize_student_name }}"
 
@@ -39,15 +39,15 @@
 - name: Fetch values.yaml file from remote host
   run_once: true
   ansible.builtin.fetch:
-    src: /tmp/{{ gitea_customize_lab_username }}-pipeline-gitops.git
-    dest: /tmp/{{ gitea_customize_lab_username }}-pipeline-gitops.git
+    src: /tmp/{{ gitea_customize_lab_username }}-pipeline-gitops/values.yaml
+    dest: /tmp/dest/values.yaml
     flat: true
     fail_on_missing: true
 
 - name: Apply template /tmp/{{ gitea_customize_lab_username }}-pipeline-gitops.git
   ansible.builtin.template:
-    src: /tmp/{{ gitea_customize_lab_username }}-pipeline-gitops.git/values.yaml
-    dest: /tmp/{{ gitea_customize_lab_username }}-pipeline-gitops.git/values.yaml
+    src: /tmp/dest/values.yaml
+    dest: /tmp/{{ gitea_customize_lab_username }}-pipeline-gitops/values.yaml
     mode: "0660"
     owner: "{{ gitea_customize_student_name }}"
 
