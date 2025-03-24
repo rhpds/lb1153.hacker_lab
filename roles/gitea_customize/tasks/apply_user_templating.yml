@@ -25,7 +25,6 @@
     src: /tmp/dest/values.yaml
     dest: /tmp/{{ gitea_customize_lab_username }}-env-gitops/values.yaml
     mode: "0660"
-    owner: "{{ gitea_customize_student_name }}"
 
 - name: Clone pipeline-gitops
   ansible.builtin.git:
@@ -48,6 +47,5 @@
   ansible.builtin.template:
     src: /tmp/dest/values.yaml
     dest: /tmp/{{ gitea_customize_lab_username }}-pipeline-gitops/values.yaml
-    mode: "0660"
     owner: "{{ gitea_customize_student_name }}"
 
