@@ -10,7 +10,7 @@ gitea_customize_gitea_public_repos:
   url: https://github.com/mthirion/lb1153-customers-gitops.git
   per_user: true
 - name: env-gitops
-  url: https://github.com/mthirion/lb1153-env-gitops.git
+  url: https://github.com/treddy08/lb1153-env-gitops.git
   per_user: true
 - name: leaderboard-gitops
   url: https://github.com/mthirion/lb1153-leaderboard-gitops.git
