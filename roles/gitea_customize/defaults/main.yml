@@ -5,8 +5,16 @@ gitea_customize_gitea_admin_password: AVo2zmNf34KptdHe
 gitea_customize_gitea_public_repos:
 - name: customers-app
   url: https://github.com/mthirion/lb1153-customers-app.git
+  per_user: false
+- name: customer-gitops
+  url: https://github.com/mthirion/lb1153-customer-gitops.git
+  per_user: true
+- name: leaderboard-gitops
+  url: https://github.com/mthirion/lb1153-env-gitops.git
+  per_user: true
 - name: leaderboard-gitops
   url: https://github.com/mthirion/lb1153-leaderboard-gitops.git
+  per_user: true
 gitea_customize_gitea_num_users: "{{ num_users | default(3) }}"
 gitea_customize_gitea_user_name_base: user
 gitea_customize_gitea_user_password: MTg5OTIy
