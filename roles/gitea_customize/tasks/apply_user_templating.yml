@@ -1,7 +1,7 @@
 ---
-- name: Remove env-gitops
+- name: Remove {{ gitea_customize_lab_username }}-env-gitops.git
   ansible.builtin.shell: |
-    rm -rf /tmp {{ gitea_customize_lab_username }}-env-gitops.git
+    rm -rf /tmp/{{ gitea_customize_lab_username }}-env-gitops.git
 
 - name: Clone env-gitops
   ansible.builtin.git:
