@@ -1,9 +1,13 @@
 ---
+- name: Remove env-gitops
+  ansible.builtin.shell: |
+    rm -rf /tmp {{ gitea_customize_lab_username }}-env-gitops.git
+
 - name: Clone env-gitops
   ansible.builtin.git:
-    repo: https://{{ gitea_username }}:{{ gitea_customize_gitea_user_password }}@{{
+    repo: https://{{ gitea_customize_lab_username }}:{{ gitea_customize_gitea_user_password }}@{{
           gitea_customize_gitea_endpoint }}/{{ gitea_customize_gitea_admin_user }}/{{
-          gitea_username }}-env-gitops.git
+          gitea_customize_lab_username }}-env-gitops.git
     dest: /tmp
     single_branch: yes
     version: master
@@ -16,18 +20,18 @@
     flat: true
     fail_on_missing: true
 
-- name: Apply template /tmp/{{ gitea_username }}-env-gitops/values.yaml
+- name: Apply template /tmp/{{ gitea_customize_lab_username }}-env-gitops/values.yaml
   ansible.builtin.template:
-    src: /tmp/{{ gitea_username }}-env-gitops
-    dest: /tmp/{{ gitea_username }}-env-gitops
+    src: /tmp/{{ gitea_customize_lab_username }}-env-gitops
+    dest: /tmp/{{ gitea_customize_lab_username }}-env-gitops
     mode: "0660"
     owner: "{{ gitea_customize_student_name }}"
 
 - name: Clone pipeline-gitops
   ansible.builtin.git:
-    repo: https://{{ gitea_username }}:{{ gitea_customize_gitea_user_password }}@{{
+    repo: https://{{ gitea_customize_lab_username }}:{{ gitea_customize_gitea_user_password }}@{{
           gitea_customize_gitea_endpoint }}/{{ gitea_customize_gitea_admin_user }}/{{
-          gitea_username }}-pipeline-gitops.git
+          gitea_customize_lab_username }}-pipeline-gitops.git
     dest: /tmp
     single_branch: yes
     version: master
@@ -35,15 +39,15 @@
 - name: Fetch values.yaml file from remote host
   run_once: true
   ansible.builtin.fetch:
-    src: /tmp/{{ gitea_username }}-pipeline-gitops.git
-    dest: /tmp/{{ gitea_username }}-pipeline-gitops.git
+    src: /tmp/{{ gitea_customize_lab_username }}-pipeline-gitops.git
+    dest: /tmp/{{ gitea_customize_lab_username }}-pipeline-gitops.git
     flat: true
     fail_on_missing: true
 
-- name: Apply template /tmp/{{ gitea_username }}-pipeline-gitops.git
+- name: Apply template /tmp/{{ gitea_customize_lab_username }}-pipeline-gitops.git
   ansible.builtin.template:
-    src: /tmp/{{ gitea_username }}-pipeline-gitops.git/values.yaml
-    dest: /tmp/{{ gitea_username }}-pipeline-gitops.git/values.yaml
+    src: /tmp/{{ gitea_customize_lab_username }}-pipeline-gitops.git/values.yaml
+    dest: /tmp/{{ gitea_customize_lab_username }}-pipeline-gitops.git/values.yaml
     mode: "0660"
     owner: "{{ gitea_customize_student_name }}"
 
