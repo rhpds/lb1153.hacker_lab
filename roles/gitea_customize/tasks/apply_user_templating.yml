@@ -8,15 +8,15 @@
     repo: https://{{ gitea_customize_lab_username }}:{{ gitea_customize_gitea_user_password }}@{{
           gitea_customize_gitea_endpoint }}/{{ gitea_customize_gitea_admin_user }}/{{
           gitea_customize_lab_username }}-env-gitops.git
-    dest: /tmp
+    dest: /tmp/{{ gitea_customize_lab_username }}-env-gitops
     single_branch: yes
     version: master
 
 - name: Fetch values.yaml file from remote host
   run_once: true
   ansible.builtin.fetch:
-    src: /tmp/env-gitops/values.yaml
-    dest: /tmp/env-gitops/values.yaml
+    src: /tmp/{{ gitea_customize_lab_username }}-env-gitops/values.yaml
+    dest: /tmp/{{ gitea_customize_lab_username }}-env-gitops/values.yaml
     flat: true
     fail_on_missing: true
 
@@ -32,7 +32,7 @@
     repo: https://{{ gitea_customize_lab_username }}:{{ gitea_customize_gitea_user_password }}@{{
           gitea_customize_gitea_endpoint }}/{{ gitea_customize_gitea_admin_user }}/{{
           gitea_customize_lab_username }}-pipeline-gitops.git
-    dest: /tmp
+    dest: /tmp/{{ gitea_customize_lab_username }}-pipeline-gitops
     single_branch: yes
     version: master
 
