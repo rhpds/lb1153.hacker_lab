@@ -10,7 +10,7 @@
           gitea_customize_lab_username }}-env-gitops.git
     dest: /tmp/{{ gitea_customize_lab_username }}-env-gitops
     single_branch: yes
-    version: master
+    version: main
 
 - name: Fetch values.yaml file from remote host
   run_once: true
@@ -34,7 +34,7 @@
           gitea_customize_lab_username }}-pipeline-gitops.git
     dest: /tmp/{{ gitea_customize_lab_username }}-pipeline-gitops
     single_branch: yes
-    version: master
+    version: main
 
 - name: Fetch values.yaml file from remote host
   run_once: true
