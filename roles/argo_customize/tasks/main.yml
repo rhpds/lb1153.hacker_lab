@@ -9,7 +9,7 @@
 
 - name: Set Gitea endpoint and url
   set_fact:
-    argo_customize_gitea_endpoint: https://{{ r_route.resources[0].spec.host }}
+    argo_customize_gitea_endpoint: "{{ r_route.resources[0].spec.host }}"
 
 - name: Apply user based templating
   include_tasks: template_user_resources.yml

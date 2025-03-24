@@ -1,0 +1,46 @@
+---
+- name: Clone env-gitops
+  ansible.builtin.git:
+    repo: https://{{ gitea_username }}:{{ gitea_customize_gitea_user_password }}@{{
+          gitea_customize_gitea_endpoint }}/{{ gitea_username }}/env-gitops.git
+    dest: /tmp
+    single_branch: yes
+    version: master
+
+- name: Fetch values.yaml file from remote host
+  run_once: true
+  ansible.builtin.fetch:
+    src: /tmp/env-gitops/values.yaml
+    dest: /tmp/env-gitops/values.yaml
+    flat: true
+    fail_on_missing: true
+
+- name: Apply template /tmp/env-gitops/values.yaml
+  ansible.builtin.template:
+    src: /tmp/env-gitops/values.yaml
+    dest: /tmp/env-gitops/values.yaml
+    mode: "0660"
+    owner: "{{ gitea_customize_student_name }}"
+
+- name: Clone pipeline-gitops
+  ansible.builtin.git:
+    repo: https://{{ gitea_username }}:{{ gitea_customize_gitea_user_password }}@{{
+          gitea_customize_gitea_endpoint }}/{{ gitea_username }}/pipeline-gitops.git
+    dest: /tmp
+    single_branch: yes
+    version: master
+
+- name: Fetch values.yaml file from remote host
+  run_once: true
+  ansible.builtin.fetch:
+    src: /tmp/pipeline-gitops/values.yaml
+    dest: /tmp/pipeline-gitops/values.yaml
+    flat: true
+    fail_on_missing: true
+
+- name: Apply template /tmp/pipeline-gitops/values.yaml
+  ansible.builtin.template:
+    src: /tmp/pipeline-gitops/values.yaml
+    dest: /tmp/pipeline-gitops/values.yaml
+    mode: "0660"
+    owner: "{{ gitea_customize_student_name }}"

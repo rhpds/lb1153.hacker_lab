@@ -9,11 +9,11 @@
 
 - name: Set Gitea endpoint and url
   set_fact:
-    gitea_customize_gitea_endpoint: https://{{ r_route.resources[0].spec.host }}
+    gitea_customize_gitea_endpoint: "{{ r_route.resources[0].spec.host }}"
 
 - name: Import customers-app repository
   uri:
-    url: "{{ gitea_customize_gitea_endpoint }}/api/v1/repos/migrate"
+    url: "https://{{ gitea_customize_gitea_endpoint }}/api/v1/repos/migrate"
     user: "{{ gitea_customize_gitea_admin_user }}"
     password: "{{ gitea_customize_gitea_admin_password }}"
     method: POST
@@ -32,3 +32,11 @@
       }
   loop: "{{ gitea_customize_gitea_public_repos }}"
 
+- name: Apply user templating
+  include_tasks: apply_user_templating.yml
+  loop: "{{ range(0, gitea_customize_gitea_num_users | int, 1) | list }}"
+  loop_control:
+    loop_var: n
+  vars:
+    index: "{{ n | int + 1 }}"
+    gitea_username: "{{ gitea_customize_gitea_user_name_base }}{{ index }}
