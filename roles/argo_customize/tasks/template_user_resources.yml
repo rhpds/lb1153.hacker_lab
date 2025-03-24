@@ -12,6 +12,7 @@
   - argocd-pipeline-repo.yml.j2
   - argocd-project.yml.j2
   - argocd-customers-app.yml.j2
+  - argocd-leaderboard-app.yml.j2
   loop_control:
     loop_var: template_file
   vars:
