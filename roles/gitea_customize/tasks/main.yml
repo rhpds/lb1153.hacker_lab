@@ -12,24 +12,7 @@
     gitea_customize_gitea_endpoint: "{{ r_route.resources[0].spec.host }}"
 
 - name: Import customers-app repository
-  uri:
-    url: "https://{{ gitea_customize_gitea_endpoint }}/api/v1/repos/migrate"
-    user: "{{ gitea_customize_gitea_admin_user }}"
-    password: "{{ gitea_customize_gitea_admin_password }}"
-    method: POST
-    force_basic_auth: true
-    validate_certs: false
-    body_format: json
-    status_code: 201
-    headers:
-      Content-Type: application/json
-    body: >-
-      {
-      "clone_addr": "{{ item.url }}",
-      "repo_name": "{{ item.name }}",
-      "repo_owner": "{{ gitea_customize_gitea_admin_user }}",
-      "private": false
-      }
+  include_tasks: migrate_repos.yml
   loop: "{{ gitea_customize_gitea_public_repos }}"
 
 - name: Apply user templating

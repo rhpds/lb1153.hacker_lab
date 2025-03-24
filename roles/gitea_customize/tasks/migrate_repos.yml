@@ -44,5 +44,4 @@
   loop_control:
     loop_var: n
   vars:
-    index: "{{ n | int + 1 }}"
-    gitea_username: "{{ gitea_customize_gitea_user_name_base }}{{ index }}"
+    gitea_username: "{{ gitea_customize_gitea_user_name_base }}{{ n | int + 1 }}"
