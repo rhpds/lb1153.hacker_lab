@@ -50,15 +50,15 @@
 - name: Clone pipeline-gitops
   ansible.builtin.git:
     repo: https://{{ gitea_customize_lab_username }}:{{ gitea_customize_gitea_user_password }}@{{
-          gitea_customize_gitea_endpoint }}/{{ gitea_customize_lab_username }}/pipeline-gitops.git
-    dest: /tmp/{{ gitea_customize_lab_username }}-pipeline-gitops
+          gitea_customize_gitea_endpoint }}/{{ gitea_customize_lab_username }}/customers-pipeline-gitops.git
+    dest: /tmp/{{ gitea_customize_lab_username }}-customers-pipeline-gitops
     single_branch: yes
     version: main
 
 - name: Fetch values.yaml file from remote host
   run_once: true
   ansible.builtin.fetch:
-    src: /tmp/{{ gitea_customize_lab_username }}-pipeline-gitops/values.yaml
+    src: /tmp/{{ gitea_customize_lab_username }}-customers-pipeline-gitops/values.yaml
     dest: /tmp/dest/values.yaml
     flat: true
     fail_on_missing: true
@@ -66,19 +66,19 @@
 - name: Apply template /tmp/{{ gitea_customize_lab_username }}-pipeline-gitops.git
   ansible.builtin.template:
     src: /tmp/dest/values.yaml
-    dest: /tmp/{{ gitea_customize_lab_username }}-pipeline-gitops/values.yaml
+    dest: /tmp/{{ gitea_customize_lab_username }}-customers-pipeline-gitops/values.yaml
 
 - name: Add new files to the repository
   ansible.builtin.command:
     chdir: >-
-      /tmp/{{ gitea_customize_lab_username }}-pipeline-gitops
+      /tmp/{{ gitea_customize_lab_username }}-customers-pipeline-gitops
     cmd: "git add ."
   ignore_errors: true
 
 - name: Commit changes to the repository
   ansible.builtin.command:
     chdir: >-
-      /tmp/{{ gitea_customize_lab_username }}-pipeline-gitops
+      /tmp/{{ gitea_customize_lab_username }}-customers-pipeline-gitops
     cmd: >-
       git commit -a -m 'Updates for starting scenario.'
   ignore_errors: true
@@ -86,6 +86,6 @@
 - name: Push all changes back to the project repository
   ansible.builtin.command:
     chdir: >-
-      /tmp/{{ gitea_customize_lab_username }}-pipeline-gitops
+      /tmp/{{ gitea_customize_lab_username }}-customers-pipeline-gitops
     cmd: >-
       git push
