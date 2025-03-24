@@ -2,24 +2,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ argo_customize_gitea_user_name_base }}{{ index }}-customers-manifests
+  name: {{ argo_customize_gitea_user_name_base }}{{ index }}-leaderboard
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
 spec:
-  project: {{ argo_customize_gitea_user_name_base }}{{ index }}
+  project: default
   source:
     repoURL: https://{{ argo_customize_gitea_endpoint }}/{{ argo_customize_gitea_user_name_base }}{{ index }}/customers-gitops.git
     targetRevision: HEAD
     path: .
-    helm:
-      parameters:
-      - name: namespace.name
-        value: customers-{{ argo_customize_gitea_user_name_base }}{{ index }}
-      - name: environment
-        value: dev
-      - name: image.tag
-        value: latest
   destination:
     server: https://kubernetes.default.svc
-    namespace: customers-{{ argo_customize_gitea_user_name_base }}{{ index }}
+    namespace: leaderboard
   ignoreDifferences:
     - group: '*'
       jqPathExpressions:
@@ -30,8 +24,8 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
-    - ApplyOutOfSyncOnly=true
     - CreateNamespace=true
+    - ApplyOutOfSyncOnly=true
     retry:
       limit: -1
       backoff:
