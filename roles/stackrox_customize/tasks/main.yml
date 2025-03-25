@@ -61,7 +61,7 @@
 
 - name: Create stackrox user roles
   include_tasks: create_stackrox_user_roles.yml
-  loop: "{{ range(0, gitea_customize_gitea_num_users | int, 1) | list }}"
+  loop: "{{ range(0, stackrox_customize_num_users | int, 1) | list }}"
   loop_control:
     loop_var: n
   vars:
