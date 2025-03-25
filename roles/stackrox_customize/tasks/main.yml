@@ -87,9 +87,9 @@
 - name: Patch stackrox operator (1)
   kubernetes.core.k8s_json_patch:
     api_version: platform.stackrox.io/v1alpha1
-    kind: SecuredCluster
+    kind: Central
     namespace: "{{ stackrox_customize_stackrox_namespace }}"
-    name:  stackrox-secured-cluster-services
+    name:  stackrox-central-services
     patch:
     - op: add
       path: /spec/customize/envVars/-
@@ -105,9 +105,9 @@
 # - name: Patch stackrox operator (2)
 #   kubernetes.core.k8s_json_patch:
 #     api_version: platform.stackrox.io/v1alpha1
-#     kind: SecuredCluster
+#     kind: Central
 #     namespace: "{{ stackrox_customize_stackrox_namespace }}"
-#     name:  stackrox-secured-cluster-services
+#     name:  stackrox-central-services
 #     patch:
 #     - op: add
 #       path: /spec/customize/envVars/-
@@ -120,6 +120,6 @@
 #         name: ROX_NETWORK_GRAPH_EXTERNAL_IPS
 #         value: 'true'
 
-- name: Delete all stackrox pods
-  ansible.builtin.shell: |
-    oc delete pods -n {{ stackrox_customize_stackrox_namespace }} --all
+# - name: Delete all stackrox pods
+#   ansible.builtin.shell: |
+#     oc delete pods -n {{ stackrox_customize_stackrox_namespace }} --all
