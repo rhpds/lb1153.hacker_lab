@@ -84,7 +84,7 @@
 #     index: "{{ n | int + 1 }}"
 #     stackrox_customize_username: "{{ stackrox_customize_stackrox_user_name_base }}{{ index }}"
 
-- name: Patch stackrox operator
+- name: Patch stackrox operator (1)
   kubernetes.core.k8s_json_patch:
     api_version: platform.stackrox.io/v1alpha1
     kind: SecuredCluster
@@ -98,7 +98,7 @@
       path: /spec/customize/envVars
       value: []
 
-- name: Patch stackrox operator
+- name: Patch stackrox operator (2)
   kubernetes.core.k8s_json_patch:
     api_version: platform.stackrox.io/v1alpha1
     kind: SecuredCluster
@@ -108,5 +108,14 @@
     - op: add
       path: /spec/customize/envVars/-
       value:
-        name: 'test'
-        value: test
+        name: ROX_EXTERNAL_IPS
+        value: 'true'
+    - op: add
+      path: /spec/customize/envVars/-
+      value:
+        name: ROX_NETWORK_GRAPH_EXTERNAL_IPS
+        value: 'true'
+
+- name: Delete all stackrox pods
+  ansibile.builtin.shell: |
+    oc delete pods -n {{ stackrox_customize_stackrox_namespace }} --all
