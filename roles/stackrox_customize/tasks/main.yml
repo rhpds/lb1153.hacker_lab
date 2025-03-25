@@ -59,6 +59,22 @@
         r_ps_response.json.permissionSets | json_query(_jsonQuery)
       }}
 
+- name: Create default 'None' group
+  uri:
+    url: "{{ stackrox_customize_stackrox_url }}/v1/groups"
+    user: "{{ stackrox_customize_stackrox_admin }}"
+    password: "{{ stackrox_customize_stackrox_admin_password }}"
+    force_basic_auth: true
+    method: POST
+    headers:
+      Content-Type: "application/json"
+    body_format: json
+    body:
+      props:
+        authProviderId: "{{ stackrox_customize_auth_provider_id }}"
+      roleName: None
+    validate_certs: false
+
 - name: Create stackrox user roles
   include_tasks: create_stackrox_user_roles.yml
   loop: "{{ range(0, stackrox_customize_num_users | int, 1) | list }}"
