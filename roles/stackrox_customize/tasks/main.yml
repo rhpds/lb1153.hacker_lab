@@ -103,8 +103,8 @@
     name: stackrox-secured-cluster-services
     patch:
     - op: add
-      path: /spec/envVars[0]/name
+      path: /spec/customize/envVars[0]/name
       value: ROX_EXTERNAL_IPS
     - op: add
-      path: /spec/envVars[0]/value
+      path: /spec/customize/envVars[0]/value
       value: 'true'
