@@ -98,6 +98,11 @@
       path: /spec/customize/envVars
       value: []
 
+- name: Apply collector config
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('file', 'collector-config.yml') | from_yaml }}"
+
 - name: Patch stackrox operator (2)
   kubernetes.core.k8s_json_patch:
     api_version: platform.stackrox.io/v1alpha1

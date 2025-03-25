@@ -21,12 +21,6 @@
   loop_control:
     loop_var: n
 
-- name: Apply combined user templating
-  kubernetes.core.k8s:
-    state: present
-    definition: "{{ lookup('template', 'user-ns-rolebinding.yml.j2') | from_yaml }}"
-    namespace: "{{ argo_customize_argo_namespace }}"
-
 - name: Patch ArgoCD to add users
   kubernetes.core.k8s_json_patch:
     api_version: argoproj.io/v1beta1
