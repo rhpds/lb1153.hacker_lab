@@ -97,6 +97,9 @@
     - op: replace
       path: /spec/customize/envVars
       value: []
+    - op: replace
+      path: /spec/customize/envVars/0
+      value: {}
 
 - name: Patch stackrox operator
   kubernetes.core.k8s_json_patch:
