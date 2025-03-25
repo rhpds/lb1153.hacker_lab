@@ -46,7 +46,7 @@
     body:
       props:
         authProviderId: "{{ stackrox_customize_auth_provider_id }}"
-        key: userId
+        key: userid
         value: "{{ stackrox_customize_username }}"
       roleName: analyst-{{ stackrox_customize_username }}
     validate_certs: false
