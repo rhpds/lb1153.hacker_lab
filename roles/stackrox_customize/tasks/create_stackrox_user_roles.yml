@@ -44,9 +44,9 @@
       Content-Type: "application/json"
     body_format: json
     body:
-      # props:
-      #   authProviderId: "{{ stackrox_customize_auth_provider_id }}"
-      key: userId
-      value: "{{ stackrox_customize_username }}"
+      props:
+        authProviderId: "{{ stackrox_customize_auth_provider_id }}"
+        key: userId
+        value: "{{ stackrox_customize_username }}"
       roleName: analyst-{{ stackrox_customize_username }}
     validate_certs: false
