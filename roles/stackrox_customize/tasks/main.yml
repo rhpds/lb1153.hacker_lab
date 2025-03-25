@@ -11,78 +11,78 @@
   set_fact:
     stackrox_customize_stackrox_url: https://{{ r_stackrox_route.resources[0].spec.host }}
 
-# - name: Create Identity Provider in ACS
-#   uri:
-#     url: "{{ stackrox_customize_stackrox_url }}/v1/authProviders"
-#     user: "{{ stackrox_customize_stackrox_admin }}"
-#     password: "{{ stackrox_customize_stackrox_admin_password }}"
-#     force_basic_auth: true
-#     method: POST
-#     headers:
-#       Content-Type: "application/json"
-#     body_format: json
-#     body:
-#       name: "openshift-oauth"
-#       type: "openshift"
-#       enabled: true
-#       active: true
-#     validate_certs: false
-#   register: r_idp_response
+- name: Create Identity Provider in ACS
+  uri:
+    url: "{{ stackrox_customize_stackrox_url }}/v1/authProviders"
+    user: "{{ stackrox_customize_stackrox_admin }}"
+    password: "{{ stackrox_customize_stackrox_admin_password }}"
+    force_basic_auth: true
+    method: POST
+    headers:
+      Content-Type: "application/json"
+    body_format: json
+    body:
+      name: "openshift-oauth"
+      type: "openshift"
+      enabled: true
+      active: true
+    validate_certs: false
+  register: r_idp_response
 
-# - name: Set auth provider id
-#   set_fact:
-#     stackrox_customize_auth_provider_id: "{{ r_idp_response.json.id }}"
+- name: Set auth provider id
+  set_fact:
+    stackrox_customize_auth_provider_id: "{{ r_idp_response.json.id }}"
 
-# - name: Get permission sets
-#   uri:
-#     url: "{{ stackrox_customize_stackrox_url }}/v1/permissionsets"
-#     user: "{{ stackrox_customize_stackrox_admin }}"
-#     password: "{{ stackrox_customize_stackrox_admin_password }}"
-#     method: GET
-#     force_basic_auth: true
-#     validate_certs: false
-#     body_format: json
-#     headers:
-#       Content-Type: application/json
-#   register: r_ps_response
+- name: Get permission sets
+  uri:
+    url: "{{ stackrox_customize_stackrox_url }}/v1/permissionsets"
+    user: "{{ stackrox_customize_stackrox_admin }}"
+    password: "{{ stackrox_customize_stackrox_admin_password }}"
+    method: GET
+    force_basic_auth: true
+    validate_certs: false
+    body_format: json
+    headers:
+      Content-Type: application/json
+  register: r_ps_response
 
-# - name: Set JSON Query (dev)
-#   set_fact:
-#     _jsonQuery: "[?name=='Analyst']"
+- name: Set JSON Query (dev)
+  set_fact:
+    _jsonQuery: "[?name=='Analyst']"
 
-# - name: Set Analyst permission set id {{ _jsonQuery }}
-#   set_fact:
-#     stackrox_customize_analyst_permission_set_id: "{{ selected[0].id }}"
-#   vars:
-#     selected: >-
-#       {{
-#         r_ps_response.json.permissionSets | json_query(_jsonQuery)
-#       }}
+- name: Set Analyst permission set id {{ _jsonQuery }}
+  set_fact:
+    stackrox_customize_analyst_permission_set_id: "{{ selected[0].id }}"
+  vars:
+    selected: >-
+      {{
+        r_ps_response.json.permissionSets | json_query(_jsonQuery)
+      }}
 
-# - name: Create default 'None' group
-#   uri:
-#     url: "{{ stackrox_customize_stackrox_url }}/v1/groups"
-#     user: "{{ stackrox_customize_stackrox_admin }}"
-#     password: "{{ stackrox_customize_stackrox_admin_password }}"
-#     force_basic_auth: true
-#     method: POST
-#     headers:
-#       Content-Type: "application/json"
-#     body_format: json
-#     body:
-#       props:
-#         authProviderId: "{{ stackrox_customize_auth_provider_id }}"
-#       roleName: None
-#     validate_certs: false
+- name: Create default 'None' group
+  uri:
+    url: "{{ stackrox_customize_stackrox_url }}/v1/groups"
+    user: "{{ stackrox_customize_stackrox_admin }}"
+    password: "{{ stackrox_customize_stackrox_admin_password }}"
+    force_basic_auth: true
+    method: POST
+    headers:
+      Content-Type: "application/json"
+    body_format: json
+    body:
+      props:
+        authProviderId: "{{ stackrox_customize_auth_provider_id }}"
+      roleName: None
+    validate_certs: false
 
-# - name: Create stackrox user roles
-#   include_tasks: create_stackrox_user_roles.yml
-#   loop: "{{ range(0, stackrox_customize_num_users | int, 1) | list }}"
-#   loop_control:
-#     loop_var: n
-#   vars:
-#     index: "{{ n | int + 1 }}"
-#     stackrox_customize_username: "{{ stackrox_customize_stackrox_user_name_base }}{{ index }}"
+- name: Create stackrox user roles
+  include_tasks: create_stackrox_user_roles.yml
+  loop: "{{ range(0, stackrox_customize_num_users | int, 1) | list }}"
+  loop_control:
+    loop_var: n
+  vars:
+    index: "{{ n | int + 1 }}"
+    stackrox_customize_username: "{{ stackrox_customize_stackrox_user_name_base }}{{ index }}"
 
 - name: Patch stackrox operator (1)
   kubernetes.core.k8s_json_patch:
