@@ -1,11 +1,15 @@
 ---
-- name: Create customer app with namespace
+- name: Create customers gitops repo secret
   kubernetes.core.k8s:
     state: present
-    definition: "{{ lookup('template', 'argocd-customers-repo.yml.j2') | from_yaml }}"
+    definition: "{{ lookup('template', item) | from_yaml }}"
     namespace: "{{ argo_customize_argo_namespace }}"
   vars:
     index: "{{ n | int + 1 }}"
+  loop:
+  - argocd-customers-repo.yml.j2
+  - argocd-project.yml.j2
+  - argocd-customers-app.yml.j2
 
 - name: Wait for Application to sync
   k8s_info:
@@ -22,20 +26,23 @@
   vars:
     index: "{{ n | int + 1 }}"
 
+- name: Apply pod role and role binding for each user
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('template', template) | from_yaml }}"
+    namespace: customers-{{ argo_customize_gitea_user_name_base }}{{ index }}
+  loop:
+  - pod-role.yml.j2
+  - user-pod-rolebinding.yml.j2
+
 - name: Apply user based templating
   kubernetes.core.k8s:
     state: present
     definition: "{{ lookup('template', template_file) | from_yaml }}"
-    namespace: "{{ argo_customize_argo_namespace }}"
   loop:
-  - argocd-customers-repo.yml.j2
-  - pod-role.yml.j2
-  - user-pod-rolebinding.yml.j2
   - argocd-env-repo.yml.j2
   - argocd-pipeline-repo.yml.j2
-  - argocd-project.yml.j2
-  - argocd-customers-app.yml.j2
-  - argocd-leaderboard-app.yml.j2
+  - argocd-leaderboard.yml.j2
   loop_control:
     loop_var: template_file
   vars:
