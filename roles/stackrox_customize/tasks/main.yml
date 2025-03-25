@@ -117,5 +117,5 @@
         value: 'true'
 
 - name: Delete all stackrox pods
-  ansibile.builtin.shell: |
+  ansible.builtin.shell: |
     oc delete pods -n {{ stackrox_customize_stackrox_namespace }} --all
