@@ -4,4 +4,3 @@ argo_customize_gitea_namespace: gitea
 argo_customize_argo_namespace: openshift-gitops
 argo_customize_gitea_user_name_base: user
 argo_customize_gitea_user_password: MTg5OTIy
-guid: wklnf
