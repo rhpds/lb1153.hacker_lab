@@ -11,12 +11,10 @@
     body_format: json
     body:
       name: "analyst-{{ stackrox_customize_username }}"
-      rules: [
-        includedNamespaces: [
-          clusterName: "production"
+      rules:
+      - includedNamespaces:
+        - clusterName: "production"
           namespaceName: "customers-{{ stackrox_customize_username }}"
-        ]
-      ]
     validate_certs: false
   register: r_as_response
 
