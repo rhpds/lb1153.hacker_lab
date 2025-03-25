@@ -89,7 +89,7 @@
     api_version: platform.stackrox.io/v1alpha1
     kind: SecuredCluster
     namespace: "{{ stackrox_customize_stackrox_namespace }}"
-    name: stackrox_customize_stackrox_namespace
+    name:  stackrox-secured-cluster-services
     patch:
     - op: add
       path: /spec/customize
