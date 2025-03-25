@@ -94,23 +94,17 @@
     - op: replace
       path: /spec/customize
       value: {}
-    - op: add
-      path: /spec/customize/envVars/0/name
-      value: ROX_EXTERNAL_IPS
-    - op: add
-      path: /spec/customize/envVars/0/value
-      value: 'true'
+    - op: replace
+      path: /spec/customize/envVars
+      value: []
 
-# - name: Patch stackrox operator
-#   kubernetes.core.k8s_json_patch:
-#     api_version: platform.stackrox.io/v1alpha1
-#     kind: SecuredCluster
-#     namespace: "{{ stackrox_customize_stackrox_namespace }}"
-#     name:  stackrox-secured-cluster-services
-#     patch:
-#     - op: add
-#       path: /spec/customize/envVars/0/name
-#       value: ROX_EXTERNAL_IPS
-#     - op: add
-#       path: /spec/customize/envVars/0/value
-#       value: 'true'
+- name: Patch stackrox operator
+  kubernetes.core.k8s_json_patch:
+    api_version: platform.stackrox.io/v1alpha1
+    kind: SecuredCluster
+    namespace: "{{ stackrox_customize_stackrox_namespace }}"
+    name:  stackrox-secured-cluster-services
+    patch:
+    - op: add
+      path: /spec/customize/envVars/0
+      value: []
