@@ -10,8 +10,13 @@ bootstrap_external_secrets_version: 0.9.2
 bootstrap_backstage_namespace: backstage
 bootstrap_quay_admin_password: "{{ common_password }}"
 bootstrap_common_password: "{{ common_password }}"
-bootstrap_stackrox_namespace: stackrox
+
+bootstrap_rhacs_namespace: stackrox
 bootstrap_rhacs_admin_password: "{{ common_password }}"
+
+bootstrap_tpa_namespace: trusted-profile-analyzer
+bootstrap_tpa_oidc_client_id: walker #notsecret
+bootstrap_tpa_oidc_client_secret: 5460cc91-4e20-4edd-881c-b15b169f8a79 #notsecret
 
 ocp4_workload_quay_operator_namespace: quay-registry
 ocp4_workload_quay_operator_catalogsource_namespace: quay-registry
