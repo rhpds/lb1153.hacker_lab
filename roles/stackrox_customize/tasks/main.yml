@@ -107,4 +107,4 @@
     patch:
     - op: add
       path: /spec/customize/envVars/0
-      value: []
+      value: {}
