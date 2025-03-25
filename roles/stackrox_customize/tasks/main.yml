@@ -56,7 +56,7 @@
   vars:
     selected: >-
       {{
-        r_cluster_response.json.permissionSets | json_query(_jsonQuery)
+        r_ps_response.json.permissionSets | json_query(_jsonQuery)
       }}
 
 - name: Create stackrox user roles
