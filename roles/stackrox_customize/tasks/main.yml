@@ -106,5 +106,5 @@
     name:  stackrox-secured-cluster-services
     patch:
     - op: add
-      path: /spec/customize/envVars/0
-      value: {}
+      path: /spec/customize/envVars/0/name
+      value: 'test'
