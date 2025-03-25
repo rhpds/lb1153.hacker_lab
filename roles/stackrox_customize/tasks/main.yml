@@ -86,10 +86,10 @@
 
 - name: Patch stackrox operator
   kubernetes.core.k8s_json_patch:
-    api_version: v1
-    kind: Secret
-    namespace: "{{ argo_customize_argo_namespace }}"
-    name: argocd-secret
+    api_version: platform.stackrox.io/v1alpha1
+    kind: SecuredCluster
+    namespace: "{{ stackrox_customize_stackrox_namespace }}"
+    name: stackrox_customize_stackrox_namespace
     patch:
     - op: add
       path: /spec/customize
@@ -97,10 +97,10 @@
 
 - name: Patch stackrox operator
   kubernetes.core.k8s_json_patch:
-    api_version: v1
-    kind: Secret
-    namespace: "{{ argo_customize_argo_namespace }}"
-    name: argocd-secret
+    api_version: platform.stackrox.io/v1alpha1
+    kind: SecuredCluster
+    namespace: "{{ stackrox_customize_stackrox_namespace }}"
+    name: stackrox_customize_stackrox_namespace
     patch:
     - op: add
       path: /spec/envVars[0]/name
