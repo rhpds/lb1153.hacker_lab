@@ -6,17 +6,17 @@
     name: cluster
   register: r_ingress_config
 
-# - name: Setup Vault
-#   ansible.builtin.include_tasks:
-#     file: ./setup_vault.yml
+- name: Setup Vault
+  ansible.builtin.include_tasks:
+    file: ./setup_vault.yml
 
-# - name: Setup External Secrets Operator
-#   ansible.builtin.include_tasks:
-#     file: ./setup_external_secrets.yml
+- name: Setup External Secrets Operator
+  ansible.builtin.include_tasks:
+    file: ./setup_external_secrets.yml
 
-# - name: Setup Quay
-#   ansible.builtin.include_tasks:
-#     file: ./setup_quay.yml
+- name: Setup Quay
+  ansible.builtin.include_tasks:
+    file: ./setup_quay.yml
 
 - name: Setup External Secrets Operator
   ansible.builtin.include_tasks:

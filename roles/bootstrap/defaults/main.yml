@@ -1,8 +1,4 @@
 ---
-ocp4_username: system:admin
-become_override: false
-silent: false
-
 bootstrap_cloud_provider: "{{ cloud_provider | default('ec2') }}"
 bootstrap_agnosticg_repo: https://github.com/treddy08/agnosticg.git
 bootstrap_vault_namespace: vault
@@ -17,16 +13,3 @@ bootstrap_rhacs_admin_password: "{{ common_password }}"
 bootstrap_tpa_namespace: trusted-profile-analyzer
 bootstrap_tpa_oidc_client_id: walker #notsecret
 bootstrap_tpa_oidc_client_secret: 5460cc91-4e20-4edd-881c-b15b169f8a79 #notsecret
-
-ocp4_workload_quay_operator_namespace: quay-registry
-ocp4_workload_quay_operator_catalogsource_namespace: quay-registry
-ocp4_workload_quay_operator_channel: stable-3.13
-ocp4_workload_quay_operator_starting_csv: quay-operator.v3.13.1
-ocp4_workload_quay_operator_use_catalog_snapshot: true
-ocp4_workload_quay_operator_catalogsource_name: redhat-operators-snapshot-quay
-ocp4_workload_quay_operator_catalog_snapshot_image: "{{ ocp4_workload_catalogsource_image }}"
-ocp4_workload_quay_operator_catalog_snapshot_image_tag: "{{ ocp4_workload_catalogsource_tag }}"
-ocp4_workload_quay_operator_registry_admin_password: "{{ common_password }}"
-ACTION: provision
-common_password: "{{ (guid[:5] | hash('md5') | int(base=16) | b64encode)[:8] }}"
-guid: wklnf
