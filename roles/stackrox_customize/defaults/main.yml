@@ -4,4 +4,6 @@ stackrox_customize_stackrox_admin: admin
 stackrox_customize_num-users: "{{ num_users | default(3) }}"
 stackrox_customize_stackrox_admin_password: "{{ common_password | default('password') }}"
 stackrox_customize_stackrox_user_name_base: user
+
+guid: wklnf
 common_password: "{{ (guid[:5] | hash('md5') | int(base=16) | b64encode)[:8] }}"
