@@ -91,10 +91,10 @@
     namespace: "{{ stackrox_customize_stackrox_namespace }}"
     name:  stackrox-secured-cluster-services
     patch:
-    - op: add
+    - op: replace
       path: /spec/customize
       value: {}
-    - op: add
+    - op: replace
       path: /spec/customize/envVars
       value: {}
 
