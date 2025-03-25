@@ -90,16 +90,3 @@
   until: _r_ext_quay_token_exp.rc == 0
   retries: 5
   delay: 30
-
-- name: Create vault secrets for Quay access
-  vars:
-    quay_auth: "quayadmin:{{ bootstrap_quay_admin_password }}"
-  kubernetes.core.k8s_exec:
-    namespace: "{{ bootstrap_vault_namespace }}"
-    pod: vault-0
-    command: "{{ item }}"
-  loop:
-  - "vault kv put kv/secrets/janusidp/registry/auth value={{ quay_auth | b64encode }}"
-  - "vault kv put kv/secrets/janusidp/registry/username value=quayadmin"
-  - "vault kv put kv/secrets/janusidp/registry/password value={{
-    bootstrap_quay_admin_password }}"
