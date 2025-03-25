@@ -97,12 +97,6 @@
     - op: replace
       path: /spec/customize/envVars
       value: []
-    - op: add
-      path: /spec/customize/envVars/0/name
-      value: ROX_EXTERNAL_IPS
-    - op: add
-      path: /spec/customize/envVars/0/value
-      value: 'true'
 
 - name: Patch stackrox operator
   kubernetes.core.k8s_json_patch:
