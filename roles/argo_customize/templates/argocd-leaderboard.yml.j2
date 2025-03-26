@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ argo_customize_argo_user_name_base }}{{ index }}-leaderboard
+  name: leaderboard
   namespace: {{ argo_customize_argo_namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "-1"
