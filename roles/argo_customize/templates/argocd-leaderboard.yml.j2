@@ -2,14 +2,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ argo_customize_gitea_user_name_base }}{{ index }}-leaderboard
+  name: {{ argo_customize_user_name_base }}{{ index }}-leaderboard
   namespace: {{ argo_customize_argo_namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "-1"
 spec:
   project: default
   source:
-    repoURL: https://{{ argo_customize_gitea_endpoint }}/gitea/{{ argo_customize_gitea_user_name_base }}{{ index }}-leaderboard-gitops.git
+    repoURL: https://{{ argo_customize_gitea_endpoint }}/gitea/{{ argo_customize_user_name_base }}{{ index }}-leaderboard-gitops.git
     targetRevision: HEAD
     path: .
   destination:

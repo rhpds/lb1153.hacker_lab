@@ -15,7 +15,7 @@
   k8s_info:
     api_version: argoproj.io/v1alpha1
     kind: Application
-    name: "{{ argo_customize_gitea_user_name_base }}{{ index }}-customers-manifests"
+    name: "{{ argo_customize_user_name_base }}{{ index }}-customers-manifests"
     namespace: "{{ argo_customize_argo_namespace }}"
   register: r_application
   retries: 180
@@ -30,7 +30,7 @@
   kubernetes.core.k8s:
     state: present
     definition: "{{ lookup('template', item) | from_yaml }}"
-    namespace: customers-{{ argo_customize_gitea_user_name_base }}{{ index }}
+    namespace: customers-{{ argo_customize_user_name_base }}{{ index }}
   loop:
   - pod-role.yml.j2
   - user-pod-rolebinding.yml.j2
@@ -66,6 +66,6 @@
   kubernetes.core.k8s:
     state: present
     definition: "{{ lookup('template', 'promote-run.yml.j2') | from_yaml }}"
-    namespace: customers-{{ argo_customize_gitea_user_name_base }}{{ index }}
+    namespace: customers-{{ argo_customize_user_name_base }}{{ index }}
   vars:
     index: "{{ n | int + 1 }}"
