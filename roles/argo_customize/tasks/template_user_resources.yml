@@ -66,6 +66,6 @@
   kubernetes.core.k8s:
     state: present
     definition: "{{ lookup('template', 'promote-run.yml.j2') | from_yaml }}"
-    namespace: "{{ argo_customize_argo_namespace }}"
+    namespace: customers-{{ argo_customize_gitea_user_name_base }}{{ index }}
   vars:
     index: "{{ n | int + 1 }}"
