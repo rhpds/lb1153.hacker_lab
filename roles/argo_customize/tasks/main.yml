@@ -15,6 +15,11 @@
     gitea_customize_quay_server: quay-{{ guid }}.{{ r_ingress_config.resources[0].spec.domain }}
     argo_customize_gitea_endpoint: gitea.{{ r_ingress_config.resources[0].spec.domain }}
 
+- name: Create leaderboard application
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('template', 'argocd-leaderboard.yml.j2') | from_yaml }}"
+
 - name: Apply user based templating
   include_tasks: template_user_resources.yml
   loop: "{{ range(0, argo_customize_num_users | int, 1) | list }}"

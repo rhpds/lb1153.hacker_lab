@@ -50,12 +50,6 @@
   vars:
     index: "{{ n | int + 1 }}"
 
-- name: Create leaderboard
-  kubernetes.core.k8s:
-    state: present
-    definition: "{{ lookup('template', 'argocd-leaderboard.yml.j2') | from_yaml }}"
-    namespace: "{{ argo_customize_argo_namespace }}"
-
 - name: Run pipeline run
   kubernetes.core.k8s:
     state: present
