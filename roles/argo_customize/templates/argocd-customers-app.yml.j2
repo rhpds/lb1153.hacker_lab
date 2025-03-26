@@ -6,7 +6,7 @@ metadata:
 spec:
   project: {{ argo_customize_gitea_user_name_base }}{{ index }}
   source:
-    repoURL: https://{{ argo_customize_gitea_endpoint }}/{{ argo_customize_gitea_user_name_base }}{{ index }}/customers-gitops.git
+    repoURL: https://{{ argo_customize_gitea_endpoint }}/gitea/{{ argo_customize_gitea_user_name_base }}{{ index }}-customers-gitops.git
     targetRevision: HEAD
     path: .
     helm:
