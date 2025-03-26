@@ -50,18 +50,11 @@
   vars:
     index: "{{ n | int + 1 }}"
 
-- name: Apply user based templating
+- name: Create leaderboard
   kubernetes.core.k8s:
     state: present
-    definition: "{{ lookup('template', template_file) | from_yaml }}"
-  loop:
-  - argocd-env-repo.yml.j2
-  - argocd-pipeline-repo.yml.j2
-  - argocd-leaderboard.yml.j2
-  loop_control:
-    loop_var: template_file
-  vars:
-    index: "{{ n | int + 1 }}"
+    definition: "{{ lookup('template', 'argocd-leaderboard.yml.j2') | from_yaml }}"
+    namespace: "{{ argo_customize_argo_namespace }}"
 
 - name: Run pipeline run
   kubernetes.core.k8s:
