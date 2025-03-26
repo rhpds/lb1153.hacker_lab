@@ -2,24 +2,24 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ argo_customize_user_name_base }}{{ index }}-customers-manifests
+  name: {{ argo_customize_argo_user_name_base }}{{ index }}-customers-manifests
 spec:
-  project: {{ argo_customize_user_name_base }}{{ index }}
+  project: {{ argo_customize_argo_user_name_base }}{{ index }}
   source:
-    repoURL: https://{{ argo_customize_gitea_endpoint }}/gitea/{{ argo_customize_user_name_base }}{{ index }}-customers-gitops.git
+    repoURL: https://{{ argo_customize_gitea_endpoint }}/gitea/{{ argo_customize_gitea_user_name_base }}{{ index }}-customers-gitops.git
     targetRevision: HEAD
     path: .
     helm:
       parameters:
       - name: namespace.name
-        value: customers-{{ argo_customize_user_name_base }}{{ index }}
+        value: customers-{{ argo_customize_argo_user_name_base }}{{ index }}
       - name: environment
         value: dev
       - name: image.tag
         value: latest
   destination:
     server: https://kubernetes.default.svc
-    namespace: customers-{{ argo_customize_user_name_base }}{{ index }}
+    namespace: customers-{{ argo_customize_argo_user_name_base }}{{ index }}
   ignoreDifferences:
     - group: '*'
       jqPathExpressions:
