@@ -34,6 +34,8 @@
   loop:
   - pod-role.yml.j2
   - user-pod-rolebinding.yml.j2
+  vars:
+    index: "{{ n | int + 1 }}"
 
 - name: Apply user based templating
   kubernetes.core.k8s:
