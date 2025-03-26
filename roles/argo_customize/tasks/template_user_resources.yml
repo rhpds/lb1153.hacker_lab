@@ -29,7 +29,7 @@
 - name: Apply pod role and role binding for each user
   kubernetes.core.k8s:
     state: present
-    definition: "{{ lookup('template', template) | from_yaml }}"
+    definition: "{{ lookup('template', item) | from_yaml }}"
     namespace: customers-{{ argo_customize_gitea_user_name_base }}{{ index }}
   loop:
   - pod-role.yml.j2
