@@ -36,8 +36,8 @@
         value: |
           g, system:cluster-admins, role:admin
           {% for i in range(1, argo_customize_num_users | int + 1) %}
-          p, user{{ i }}, projects, get, user{{ i }}, allow
-          p, user{{ i }}, applications, get, user{{ i }}/*, allow
+          p, user{{ i }}, projects, get, {{ argo_customize_argo_user_name_base }}{{ i }}, allow
+          p, user{{ i }}, applications, get, {{ argo_customize_argo_user_name_base }}{{ i }}/*, allow
           {% endfor %}
       - op: replace
         path: /spec/rbac/scopes
@@ -62,7 +62,7 @@
     name: openshift-gitops
     patch:
       - op: add
-        path: /spec/extraConfig/accounts.user{{ index }}
+        path: /spec/extraConfig/accounts.{{ argo_customize_argo_user_name_base }}{{ index }}
         value: login
   loop: "{{ range(0, argo_customize_num_users | int, 1) | list }}"
   loop_control:
@@ -72,7 +72,7 @@
 
 - name: Generate HTPassword Hash
   ansible.builtin.shell:
-    htpasswd -nbBC 10 "" "userX-genpassword" | tr -d ':\n'
+    htpasswd -nbBC 10 "" "{{ argo_customize_argo_user_password }}" | tr -d ':\n'
   register: r_htpasswd_hash
 
 - name: Patch ArgoCD user passwords
@@ -83,7 +83,7 @@
     name: argocd-secret
     patch:
     - op: add
-      path: /data/accounts.user{{ index }}.password
+      path: /data/accounts.{{ argo_customize_argo_user_name_base }}{{ index }}.password
       value: "{{ r_htpasswd_hash.stdout | b64encode }}"
   loop: "{{ range(0, argo_customize_num_users | int, 1) | list }}"
   loop_control:
