@@ -77,7 +77,7 @@
 
 - name: Generate HTPassword Hash
   ansible.builtin.shell:
-    htpasswd -nbBC 10 "" "{{ argo_customize_user_password }}" | tr -d ':\n'
+    htpasswd -nbBC 10 "" "{{ argo_customize_argo_user_password }}" | tr -d ':\n'
   register: r_htpasswd_hash
 
 - name: Patch ArgoCD user passwords
