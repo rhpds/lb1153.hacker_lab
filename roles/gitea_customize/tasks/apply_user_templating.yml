@@ -51,7 +51,7 @@
   ansible.builtin.git:
     repo: https://{{ gitea_customize_gitea_admin_user }}:{{ gitea_customize_gitea_admin_password }}@{{
           gitea_customize_gitea_endpoint }}/{{ gitea_customize_lab_username }}/customers-pipeline-gitops.git
-    dest: /tmp/{{ gitea_customize_lab_username }}-pipeline-gitops
+    dest: /tmp/{{ gitea_customize_lab_username }}-customers-pipeline-gitops
     single_branch: yes
     version: main
 
