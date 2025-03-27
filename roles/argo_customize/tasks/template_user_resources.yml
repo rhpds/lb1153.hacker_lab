@@ -21,8 +21,8 @@
     index: "{{ n | int + 1 }}"
   loop:
   - argocd-customers-app.yml.j2
-  - argocd-env-app.yml.j2
-  - argocd-pipeline-app.yml.j2
+  - argocd-env-app.yaml.j2
+  - argocd-pipeline-app.yaml.j2
 
 - name: Wait for Application to sync
   k8s_info:
