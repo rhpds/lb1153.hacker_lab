@@ -9,6 +9,7 @@ bootstrap_quay_admin_password: "{{ common_password }}"
 bootstrap_common_password: "{{ common_password }}"
 bootstrap_cosign_password: redhat
 bootstrap_openshift_pipelines_namespace: openshift-pipelines
+bootstrap_trusted_artifact_signer_namespace: trusted-artifact-signer
 
 
 bootstrap_rhacs_namespace: stackrox
