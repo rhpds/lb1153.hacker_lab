@@ -7,7 +7,8 @@ metadata:
     argocd.argoproj.io/secret-type: repository
 stringData:
   type: git
-  url: https://{{ argo_customize_gitea_endpoint }}/{{ argo_customize_gitea_user_name_base }}{{ index }}/customers-pipeline-gitops.git
+  url: https://{{ argo_customize_gitea_endpoint }}/{{
+    argo_customize_gitea_admin_user }}/{{ argo_customize_gitea_user_name_base }}{{ index }}-pipeline-gitops.git
   username: {{ argo_customize_gitea_user_name_base }}{{ index }}
   password: {{ argo_customize_gitea_user_password }}
   project: {{ argo_customize_argo_user_name_base }}{{ index }}

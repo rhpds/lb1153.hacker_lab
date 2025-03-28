@@ -12,7 +12,8 @@ metadata:
 spec:
   params:
     - name: source-repo
-      value: https://{{ gitea_customize_gitea_endpoint }}/gitea/customers-app.git'
+      value: https://{{ gitea_customize_gitea_endpoint }}/{{
+        argo_customize_gitea_admin_user }}/customers-app.git'
     - name: source-branch
       value: main
     - name: output-image

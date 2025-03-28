@@ -10,7 +10,8 @@ spec:
     taskServiceAccountName: job-runner
   params:
     - name: git-repo-url
-      value: https://{{ gitea_customize_gitea_endpoint }}/gitea/customers-app.git
+      value: https://{{ gitea_customize_gitea_endpoint }}/{{
+        argo_customize_gitea_admin_user }}/customers-app.git
     - name: git-revision
       value: main
     - name: source-image

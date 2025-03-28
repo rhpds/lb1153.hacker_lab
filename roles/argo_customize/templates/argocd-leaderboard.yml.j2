@@ -9,7 +9,8 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://{{ argo_customize_gitea_endpoint }}/gitea/leaderboard-gitops.git
+    repoURL: https://{{ argo_customize_gitea_endpoint }}/{{
+      argo_customize_gitea_admin_user }}/leaderboard-gitops.git
     targetRevision: HEAD
     path: .
   destination:
