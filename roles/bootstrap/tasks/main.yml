@@ -21,3 +21,7 @@
 - name: Setup External Secrets Operator
   ansible.builtin.include_tasks:
     file: ./setup_external_secret_entries.yml
+
+- name: Setup Tekton Chains
+  ansible.builtin.include_tasks:
+    file: ./setup_tekton_chains.yml
