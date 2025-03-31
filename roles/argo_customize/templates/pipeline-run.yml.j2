@@ -19,15 +19,15 @@ spec:
     - name: output-image
       value: {{ gitea_customize_quay_server }}/quayadmin/customers
     - name: sonarqube-host-url
-      value: 'https://sonarqube-sonarqube.apps.CLUSTER_SUFFIX'
+      value: 'https://sonarqube-sonarqube.{{ gitea_customize_apps_subdomain }}'
     - name: sonarqube-project-key
       value: user1-customers
     - name: sonarqube-project-secret
       value: customers-sonarqube-secret
     - name: cyclonedx-host-url
-      value: 'https://cyclonedx-bom-repo-server-cyclonedx.apps.{{ gitea_customize_apps_subdomain }}'
+      value: 'https://cyclonedx-bom-repo-server-cyclonedx.{{ gitea_customize_apps_subdomain }}'
     - name: stackrox-endpoint
-      value: 'central-stackrox.apps.{{ gitea_customize_apps_subdomain }}:443'
+      value: 'central-stackrox.{{ gitea_customize_apps_subdomain }}:443'
     - name: stackrox-secret
       value: customers-stackrox-token
     - name: git-host
@@ -45,7 +45,7 @@ spec:
     - name: certificate-identity
       value: admin
     - name: oidc-issuer
-      value: 'https://keycloak-rhsso.apps.{{ gitea_customize_apps_subdomain }}/auth/realms/openshift'
+      value: 'https://keycloak-rhsso.{{ gitea_customize_apps_subdomain }}/auth/realms/openshift'
   pipelineRef:
     name: customers-build
   taskRunTemplate:
