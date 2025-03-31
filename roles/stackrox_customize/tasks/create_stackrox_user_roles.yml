@@ -10,7 +10,7 @@
       Content-Type: "application/json"
     body_format: json
     body:
-      name: "analyst-{{ stackrox_customize_username }}"
+      name: "network-graph-viewer-{{ stackrox_customize_username }}"
       rules:
         includedNamespaces:
         - clusterName: "production"
@@ -20,7 +20,7 @@
 
 - name: Create access scope role
   uri:
-    url: "{{ stackrox_customize_stackrox_url }}/v1/roles/analyst-{{ stackrox_customize_username }}"
+    url: "{{ stackrox_customize_stackrox_url }}/v1/roles/network-graph-viewer-{{ stackrox_customize_username }}"
     user: "{{ stackrox_customize_stackrox_admin }}"
     password: "{{ stackrox_customize_stackrox_admin_password }}"
     force_basic_auth: true
@@ -29,7 +29,7 @@
       Content-Type: "application/json"
     body_format: json
     body:
-      permissionSetId: "{{ stackrox_customize_analyst_permission_set_id }}"
+      permissionSetId: "{{ stackrox_customize_network_graph_viewer_permission_set_id }}"
       accessScopeId: "{{ r_as_response.json.id }}"
     validate_certs: false
 
@@ -48,5 +48,5 @@
         authProviderId: "{{ stackrox_customize_auth_provider_id }}"
         key: name
         value: "{{ stackrox_customize_username }}"
-      roleName: analyst-{{ stackrox_customize_username }}
+      roleName: network-graph-viewer-{{ stackrox_customize_username }}
     validate_certs: false
