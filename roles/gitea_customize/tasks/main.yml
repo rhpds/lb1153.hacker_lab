@@ -12,9 +12,9 @@
     gitea_customize_apps_subdomain: "{{ r_ingress_config.resources[0].spec.domain }}"
     gitea_customize_quay_server: quay-{{ guid }}.{{ r_ingress_config.resources[0].spec.domain }}
 
-- name: Import customers-app repository
-  include_tasks: migrate_repos.yml
-  loop: "{{ gitea_customize_gitea_public_repos }}"
+# - name: Import customers-app repository
+#   include_tasks: migrate_repos.yml
+#   loop: "{{ gitea_customize_gitea_public_repos }}"
 
 - name: Pause for gitea migration completion
   ansible.builtin.pause:
