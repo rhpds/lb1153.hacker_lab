@@ -17,7 +17,7 @@ spec:
     - name: source-branch
       value: main
     - name: output-image
-      value: {{ gitea_customize_quay_server }}/quayadmin/customers
+      value: {{ gitea_customize_quay_server }}/quayadmin/customers-{{ argo_customize_argo_user_name_base }}{{ index }}
     - name: sonarqube-host-url
       value: 'https://sonarqube-sonarqube.{{ gitea_customize_apps_subdomain }}'
     - name: sonarqube-project-key
