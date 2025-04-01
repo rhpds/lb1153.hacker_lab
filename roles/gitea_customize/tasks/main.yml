@@ -16,9 +16,9 @@
 #   include_tasks: migrate_repos.yml
 #   loop: "{{ gitea_customize_gitea_public_repos }}"
 
-- name: Pause for gitea migration completion
-  ansible.builtin.pause:
-    minutes: 2
+# - name: Pause for gitea migration completion
+#   ansible.builtin.pause:
+#     minutes: 2
 
 - name: Apply user templating
   include_tasks: apply_user_templating.yml
