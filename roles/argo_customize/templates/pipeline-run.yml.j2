@@ -33,7 +33,7 @@ spec:
     - name: git-host
       value: {{ gitea_customize_gitea_endpoint }}
     - name: git-owner
-      value: ""
+      value: {{ argo_customize_gitea_admin_user }}
     - name: component-id
       value: customers
     - name: common-password-secret
