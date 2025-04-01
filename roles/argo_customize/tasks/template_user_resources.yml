@@ -57,15 +57,3 @@
     namespace: customers-{{ argo_customize_argo_user_name_base }}{{ index }}
   vars:
     index: "{{ n | int + 1 }}"
-
-- name: Pause
-  ansible.builtin.pause:
-    minutes: 2
-
-- name: Run promote
-  kubernetes.core.k8s:
-    state: present
-    definition: "{{ lookup('template', 'promote-run.yml.j2') | from_yaml }}"
-    namespace: customers-{{ argo_customize_argo_user_name_base }}{{ index }}
-  vars:
-    index: "{{ n | int + 1 }}"
