@@ -21,7 +21,7 @@ spec:
     - name: sonarqube-host-url
       value: 'https://sonarqube-sonarqube.{{ gitea_customize_apps_subdomain }}'
     - name: sonarqube-project-key
-      value: user1-customers
+      value: {{ argo_customize_argo_user_name_base }}{{ index }}-customers
     - name: sonarqube-project-secret
       value: customers-sonarqube-secret
     - name: cyclonedx-host-url
