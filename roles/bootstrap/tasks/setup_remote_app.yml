@@ -1,0 +1,4 @@
+---
+- name: Start podman container for remote ripper application
+  ansible.builtin.shell: |
+    podman run -it -d -p 8500:8080 -e JAVA_APP_JAR=/deployments/quarkus-run.jar quay.io/rhn-gps-mthirion/ripper:latest
