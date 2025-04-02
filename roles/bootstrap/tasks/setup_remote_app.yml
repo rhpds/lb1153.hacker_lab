@@ -1,4 +1,20 @@
 ---
 - name: Start podman container for remote ripper application
   ansible.builtin.shell: |
-    sudo podman run -it -d -p 8500:8080 -e JAVA_APP_JAR=/deployments/quarkus-run.jar {{ bootstrap_remote_ripper_image }}
+    sudo dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+    sudo dnf install -y podman-compose
+    cat <<EOF > compose.yml
+    version: "3.8"
+
+    services:
+      ripper:
+        image: quay.io/rhn-gps-mthirion/ripper:latest
+        container_name: ripper
+        ports:
+          - "8500:8080"
+        environment:
+          - JAVA_APP_JAR=/deployments/quarkus-run.jar
+        restart: unless-stopped
+    EOF
+
+    podman-compose -f compose.yml up -d
