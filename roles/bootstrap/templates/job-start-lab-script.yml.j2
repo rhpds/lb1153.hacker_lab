@@ -1,0 +1,56 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ bootstrap_user_name_base }}{{ index }}-start-lab
+spec:
+  backoffLimit: 100
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: start-lab
+        image: registry.redhat.io/openshift4/ose-tools-rhel9@sha256:8037187950e7374a9c9bec4996033c9b24ce374920ef29047d4f63b4c20f3e6b
+        command:
+          - /bin/bash
+          - '-c'
+          - |
+            while true
+
+            do
+
+              HOST={{ bootstrap_user_name_base }}{{ index }}-customers-manifests-customers-{{ bootstrap_user_name_base }}{{ index }}.{{ bootstrap_app_subdomain }}
+
+              if [ ! -z "${HOST}" ]; then
+
+                STATUS_CODE_1=$(curl -s -o /dev/null -w "%{http_code}" https://${HOST}/customers)
+
+                if [ "${STATUS_CODE_1}" == "200" ]; then
+
+                  echo 'Endpoint ready.  Initiating remote call...'
+
+                  BASTION_SUBDOMAIN=$(echo {{ bootstrap_app_subdomain }} | sed -r 's/([^.]*.){2}//')
+
+                  STATUS_CODE_2=$(curl -s -kv -o /dev/null -w "%{http_code}" https://${HOST}/customers/JKHGFTGTYU/bastion.$BASTION_SUBDOMAIN)
+
+                  if [ "${STATUS_CODE_2}" == "200" ]; then
+
+                    echo 'Remote call complete'
+
+                    break
+
+                  else
+
+                    echo Server returned a "${STATUS_CODE_2}" response.  Trying again...
+
+                  fi
+
+                fi
+
+              fi
+
+              echo 'Endpoint not ready...'
+
+              sleep 10
+
+            done
+      serviceAccount: job-runner
