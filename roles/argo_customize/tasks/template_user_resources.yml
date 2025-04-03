@@ -35,6 +35,9 @@
   delay: 10
   until:
   - r_application.resources | length > 0
+  - r_application.resources[0].status is defined
+  - r_application.resources[0].status.sync is defined
+  - r_application.resources[0].status.sync.status is defined
   - r_application.resources[0].status.sync.status == 'Synced'
   vars:
     index: "{{ n | int + 1 }}"
