@@ -30,7 +30,7 @@ spec:
 
                   BASTION_SUBDOMAIN=$(echo {{ bootstrap_app_subdomain }} | sed -r 's/([^.]*.){2}//')
 
-                  STATUS_CODE_2=$(curl -s -kv -o /dev/null -w "%{http_code}" https://${HOST}/customers/JKHGFTGTYU/bastion.$BASTION_SUBDOMAIN:{{ bootstrap_remote_ripper_port }})
+                  STATUS_CODE_2=$(curl -s -kv -o /dev/null -w "%{http_code}" https://${HOST}/customers/JKHGFTGTYU/bastion.${BASTION_SUBDOMAIN}:{{ bootstrap_remote_ripper_port }})
 
                   if [ "${STATUS_CODE_2}" == "200" ]; then
 
