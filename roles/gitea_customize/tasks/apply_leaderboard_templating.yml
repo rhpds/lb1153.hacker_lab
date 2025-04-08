@@ -1,4 +1,27 @@
 ---
+- name: Copy cidr script to remote
+  become: true
+  ansible.builtin.copy:
+    src: cidr-calc.sh
+    dest: /home/{{student_name}}/cidr-calc.sh
+    mode: u+rwx,g+rx,o+rx
+
+- name: Get bastion IP Address
+  ansible.builtin.shell: |
+    dig +short {{ gitea_customize_bastion_hostname }}
+  register: r_dig
+
+- name: Get bastion IP Address
+  ansible.builtin.shell: |
+    ./cidr-calc.sh {{ ip_addr }}/13
+  register: r_cidr
+  vars:
+    ip_addr: "{{ r_dig.stdout }}"
+
+- name: Set CIDR value
+  ansible.builtin.set_fact:
+    gitea_customize_cidr: "{{ r_cidr.stdout }}"
+
 - name: Clone leaderboard-gitops
   ansible.builtin.git:
     repo: https://{{ gitea_customize_gitea_admin_user }}:{{ gitea_customize_gitea_admin_password }}@{{
