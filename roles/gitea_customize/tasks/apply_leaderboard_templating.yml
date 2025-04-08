@@ -13,10 +13,8 @@
 
 - name: Get bastion IP Address
   ansible.builtin.shell: |
-    ./cidr-calc.sh {{ ip_addr }}/13
+    ./cidr-calc.sh {{ r_dig.stdout }}/13
   register: r_cidr
-  vars:
-    ip_addr: "{{ r_dig.stdout }}"
 
 - name: Set CIDR value
   ansible.builtin.set_fact:
