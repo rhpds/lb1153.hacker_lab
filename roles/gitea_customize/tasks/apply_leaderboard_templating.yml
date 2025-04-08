@@ -3,7 +3,7 @@
   become: true
   ansible.builtin.copy:
     src: cidr-calc.sh
-    dest: /home/{{student_name}}/cidr-calc.sh
+    dest: ~/cidr-calc.sh
     mode: u+rwx,g+rx,o+rx
 
 - name: Get bastion IP Address
