@@ -1,8 +1,4 @@
 ---
-- name: Remove {{ gitea_customize_lab_username }}-env-gitops.git
-  ansible.builtin.shell: |
-    rm -rf /tmp/{{ gitea_customize_lab_username }}-env-gitops.git
-
 - name: Clone env-gitops
   ansible.builtin.git:
     repo: https://{{ gitea_customize_gitea_admin_user }}:{{ gitea_customize_gitea_admin_password }}@{{
@@ -46,6 +42,11 @@
       /tmp/{{ gitea_customize_lab_username }}-env-gitops
     cmd: >-
       git push
+
+- name: Remove /tmp/{{ gitea_customize_lab_username }}-env-gitops
+  ansible.builtin.file:
+    path: /tmp/{{ gitea_customize_lab_username }}-env-gitops
+    state: absent
 
 - name: Clone {{ gitea_customize_lab_username }}-pipeline-gitops
   ansible.builtin.git:
@@ -91,6 +92,11 @@
     cmd: >-
       git push
 
+- name: Remove /tmp/{{ gitea_customize_lab_username }}-pipeline-gitops
+  ansible.builtin.file:
+    path: /tmp/{{ gitea_customize_lab_username }}-pipeline-gitops
+    state: absent
+
 - name: Clone {{ gitea_customize_lab_username }}-customers-gitops
   ansible.builtin.git:
     repo: https://{{ gitea_customize_gitea_admin_user }}:{{ gitea_customize_gitea_admin_password }}@{{
@@ -134,3 +140,8 @@
       /tmp/{{ gitea_customize_lab_username }}-customers-gitops
     cmd: >-
       git push
+
+- name: Remove /tmp/{{ gitea_customize_lab_username }}-customers-gitops
+  ansible.builtin.file:
+    path: /tmp/{{ gitea_customize_lab_username }}-customers-gitops
+    state: absent
