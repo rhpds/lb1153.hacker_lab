@@ -3,7 +3,7 @@
   become: true
   ansible.builtin.copy:
     src: cidr-calc.sh
-    dest: ~/cidr-calc.sh
+    dest: /tmp/cidr-calc.sh
     mode: u+rwx,g+rx,o+rx
 
 - name: Get bastion IP Address
@@ -11,9 +11,9 @@
     dig +short {{ gitea_customize_bastion_hostname }}
   register: r_dig
 
-- name: Get bastion IP Address
+- name: Get masked IP Address
   ansible.builtin.shell: |
-    ./cidr-calc.sh {{ r_dig.stdout }}/13
+    /tmp/cidr-calc.sh {{ r_dig.stdout }}/13
   register: r_cidr
 
 - name: Set CIDR value
