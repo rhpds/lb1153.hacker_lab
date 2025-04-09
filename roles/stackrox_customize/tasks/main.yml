@@ -50,7 +50,7 @@
   set_fact:
     _jsonQuery: "[?name=='Network Graph Viewer']"
 
-- name: Set Analyst permission set id {{ _jsonQuery }}
+- name: Set Network Graph permission set id {{ _jsonQuery }}
   set_fact:
     stackrox_customize_network_graph_viewer_permission_set_id: "{{ selected[0].id }}"
   vars:

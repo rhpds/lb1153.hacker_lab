@@ -1,20 +1,20 @@
 ---
 - name: Copy cidr script to remote
   become: true
-  ansible.builtin.copy:
-    src: cidr-calc.sh
-    dest: /tmp/cidr-calc.sh
+  ansible.builtin.template:
+    src: get-cidr.sh
+    dest: /tmp/get-cidr.sh
     mode: u+rwx,g+rx,o+rx
 
-- name: Get bastion IP Address
+- name: Get CIDR value
   ansible.builtin.shell: |
-    dig +short {{ gitea_customize_bastion_hostname }}
-  register: r_dig
-
-- name: Get masked IP Address
-  ansible.builtin.shell: |
-    /tmp/cidr-calc.sh {{ r_dig.stdout }}/13
+    /tmp/get-cidr.sh
   register: r_cidr
+  until:
+  - r_cidr is not failed
+  - r_cidr.stdout | length > 0
+  retries: 120
+  delay: 10
 
 - name: Set CIDR value
   ansible.builtin.set_fact:
