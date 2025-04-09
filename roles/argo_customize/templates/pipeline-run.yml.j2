@@ -12,26 +12,26 @@ metadata:
 spec:
   params:
     - name: source-repo
-      value: https://{{ gitea_customize_gitea_endpoint }}/{{
+      value: https://{{ argo_customize_gitea_endpoint }}/{{
         argo_customize_gitea_admin_user }}/customers-app.git
     - name: source-branch
       value: main
     - name: output-image
-      value: {{ gitea_customize_quay_server }}/quayadmin/customers-{{ argo_customize_argo_user_name_base }}{{ index }}
+      value: {{ argo_customize_quay_server }}/quayadmin/customers-{{ argo_customize_argo_user_name_base }}{{ index }}
     - name: sonarqube-host-url
-      value: 'https://sonarqube-sonarqube.{{ gitea_customize_apps_subdomain }}'
+      value: 'https://sonarqube-sonarqube.{{ argo_customize_apps_subdomain }}'
     - name: sonarqube-project-key
       value: {{ argo_customize_argo_user_name_base }}{{ index }}-customers
     - name: sonarqube-project-secret
       value: customers-sonarqube-secret
     - name: cyclonedx-host-url
-      value: 'https://cyclonedx-bom-repo-server-cyclonedx.{{ gitea_customize_apps_subdomain }}'
+      value: 'https://cyclonedx-bom-repo-server-cyclonedx.{{ argo_customize_apps_subdomain }}'
     - name: stackrox-endpoint
-      value: 'central-stackrox.{{ gitea_customize_apps_subdomain }}:443'
+      value: 'central-stackrox.{{ argo_customize_apps_subdomain }}:443'
     - name: stackrox-secret
       value: customers-stackrox-token
     - name: git-host
-      value: {{ gitea_customize_gitea_endpoint }}
+      value: {{ argo_customize_gitea_endpoint }}
     - name: git-owner
       value: {{ argo_customize_gitea_admin_user }}
     - name: component-id
@@ -45,7 +45,7 @@ spec:
     - name: certificate-identity
       value: admin
     - name: oidc-issuer
-      value: 'https://keycloak-rhsso.{{ gitea_customize_apps_subdomain }}/auth/realms/openshift'
+      value: 'https://keycloak-rhsso.{{ argo_customize_apps_subdomain }}/auth/realms/openshift'
   pipelineRef:
     name: customers-build
   taskRunTemplate:

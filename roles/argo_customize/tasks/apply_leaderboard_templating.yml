@@ -17,12 +17,12 @@
 
 - name: Set CIDR value
   ansible.builtin.set_fact:
-    gitea_customize_cidr: "{{ r_cidr.stdout }}"
+    argo_customize_cidr: "{{ r_cidr.stdout }}"
 
 - name: Clone leaderboard-gitops
   ansible.builtin.git:
-    repo: https://{{ gitea_customize_gitea_admin_user }}:{{ gitea_customize_gitea_admin_password }}@{{
-          gitea_customize_gitea_endpoint }}/{{ gitea_customize_gitea_admin_user }}/leaderboard-gitops.git
+    repo: https://{{ argo_customize_gitea_admin_user }}:{{ argo_customize_gitea_admin_password }}@{{
+          argo_customize_gitea_endpoint }}/{{ argo_customize_gitea_admin_user }}/leaderboard-gitops.git
     dest: /tmp/leaderboard-gitops
     single_branch: yes
     version: main
@@ -61,3 +61,8 @@
       /tmp/leaderboard-gitops
     cmd: >-
       git push
+
+- name: Create leaderboard application
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('template', 'argocd-leaderboard.yml.j2') | from_yaml }}"

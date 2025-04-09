@@ -29,6 +29,3 @@
   vars:
     index: "{{ n | int + 1 }}"
     gitea_customize_lab_username: "{{ gitea_customize_gitea_user_name_base }}{{ index }}"
-
-- name: Apply templating to leaderboard repository
-  include_tasks: apply_leaderboard_templating.yml
