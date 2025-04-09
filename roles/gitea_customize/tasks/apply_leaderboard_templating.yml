@@ -1,6 +1,5 @@
 ---
 - name: Copy cidr script to remote
-  become: true
   ansible.builtin.template:
     src: get-cidr.sh
     dest: /tmp/get-cidr.sh
