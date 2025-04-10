@@ -9,7 +9,7 @@
   loop:
   - argocd-project.yml.j2
   - argocd-env-repo.yml.j2
-  - argocd-pipeline-repo.yml.j2
+  - argocd-leaderboard-repo.yml.j2
   - argocd-customers-repo.yml.j2
 
 - name: Create gitops Applications
