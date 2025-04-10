@@ -8,9 +8,6 @@
     index: "{{ n | int + 1 }}"
   loop:
   - argocd-project.yml.j2
-  - argocd-env-repo.yml.j2
-  - argocd-leaderboard-repo.yml.j2
-  - argocd-customers-repo.yml.j2
 
 - name: Create gitops Applications
   kubernetes.core.k8s:
