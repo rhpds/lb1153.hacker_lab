@@ -1,15 +1,4 @@
 ---
-- name: Create customers gitops repo secret
-  kubernetes.core.k8s:
-    state: present
-    definition: "{{ lookup('template', item) | from_yaml }}"
-    namespace: "{{ argo_customize_argo_namespace }}"
-  vars:
-    index: "{{ n | int + 1 }}"
-  loop:
-  - argocd-project.yml.j2
-  - argocd-env-repo.yml.j2
-  - argocd-leaderboard-repo.yml.j2
 - name: Create gitops Applications
   kubernetes.core.k8s:
     state: present
@@ -18,6 +7,7 @@
   vars:
     index: "{{ n | int + 1 }}"
   loop:
+  - argocd-project.yml.j2
   - argocd-customers-app.yml.j2
   - argocd-env-app.yaml.j2
   - argocd-pipeline-app.yaml.j2

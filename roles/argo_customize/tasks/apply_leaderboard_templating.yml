@@ -66,6 +66,7 @@
   kubernetes.core.k8s:
     state: present
     definition: "{{ lookup('template', item) | from_yaml }}"
+    namespace: "{{ argo_customize_argo_namespace }}"
   loop:
   - argocd-leaderboard-repo.yml.j2
   - argocd-leaderboard.yml.j2
