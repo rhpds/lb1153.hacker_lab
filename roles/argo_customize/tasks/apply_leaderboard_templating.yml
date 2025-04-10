@@ -65,4 +65,7 @@
 - name: Create leaderboard application
   kubernetes.core.k8s:
     state: present
-    definition: "{{ lookup('template', 'argocd-leaderboard.yml.j2') | from_yaml }}"
+    definition: "{{ lookup('template', item) | from_yaml }}"
+  loop:
+  - argocd-leaderboard-repo.yml.j2
+  - argocd-leaderboard.yml.j2
