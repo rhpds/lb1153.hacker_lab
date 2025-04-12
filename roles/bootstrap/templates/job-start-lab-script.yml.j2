@@ -22,7 +22,7 @@ spec:
 
               READY_REPLICAS=$(oc get deployment central -n stackrox --output json | jq -r '.status.readyReplicas')
 
-              echo ROX_EXTERNAL_IPS: *$ROX_EXTERNAL_IPS* READY_REPLICAS: *$READY_REPLICAS*
+              echo ROX_EXTERNAL_IPS: #$ROX_EXTERNAL_IPS# READY_REPLICAS: #$READY_REPLICAS#
 
               if [ "${ROX_EXTERNAL_IPS}" != "true" ] || [[ ! $READY_REPLICAS =~ ^[0-9]+$ ]] || [ "${READY_REPLICAS}" -lt 1 ]; then
 
