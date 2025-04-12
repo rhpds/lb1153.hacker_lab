@@ -18,6 +18,20 @@ spec:
 
             do
 
+              ENV_VAR_CREATED=$(oc get deployment central -n stackrox --output json | jq -r '.spec.template.spec.containers[] | select(.name=="central").env[] | select(.name=="ROX_EXTERNAL_IPS").value')
+
+              DEP_READY_REPLICAS=$(oc get deployment central -n stackrox --output json | jq -r '.status.readyReplicas')
+
+              if [ -z "${ENV_VAR_CREATED}" ] || [ -z "${DEP_READY_REPLICAS}" ] || [ "${DEP_READY_REPLICAS}" -lt 1 ]; then
+
+                echo $ENV_VAR_CREATED $DEP_READY_REPLICAS
+
+                sleep 10
+
+                continue
+
+              fi
+
               HOST={{ bootstrap_user_name_base }}{{ index }}-customers-manifests-customers-{{ bootstrap_user_name_base }}{{ index }}.{{ bootstrap_app_subdomain }}
 
               if [ ! -z "${HOST}" ]; then

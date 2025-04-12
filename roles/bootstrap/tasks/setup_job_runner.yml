@@ -3,6 +3,11 @@
   ansible.builtin.set_fact:
     bootstrap_app_subdomain: "{{ r_ingress_config.resources[0].spec.domain }}"
 
+- name: Give default SA edit access to ACS namespace
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('template', 'cluster-role-binding-default-stackrox-edit.yml.j2') | from_yaml }}"
+
 - name: Setup job-runner resources
   kubernetes.core.k8s:
     state: present
