@@ -22,7 +22,7 @@ spec:
 
               DEP_READY_REPLICAS=$(oc get deployment central -n stackrox --output json | jq -r '.status.readyReplicas')
 
-              if [ -z "${ENV_VAR_CREATED}" ] || [ -z "${DEP_READY_REPLICAS}" ] || [ "${DEP_READY_REPLICAS}" -lt 1 ]; then
+              if [ -z "${ENV_VAR_CREATED}" ] || [ "${ENV_VAR_CREATED}" != "true" ] || [ -z "${DEP_READY_REPLICAS}" ] || [ "${DEP_READY_REPLICAS}" -lt 1 ]; then
 
                 echo $ENV_VAR_CREATED $DEP_READY_REPLICAS
 
