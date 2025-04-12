@@ -18,13 +18,13 @@ spec:
 
             do
 
-              ENV_VAR_CREATED=$(oc get deployment central -n stackrox --output json | jq -r '.spec.template.spec.containers[] | select(.name=="central").env[] | select(.name=="ROX_EXTERNAL_IPS").value')
+              ROX_EXTERNAL_IPS=$(oc get deployment central -n stackrox --output json | jq -r '.spec.template.spec.containers[] | select(.name=="central").env[] | select(.name=="ROX_EXTERNAL_IPS").value')
 
-              DEP_READY_REPLICAS=$(oc get deployment central -n stackrox --output json | jq -r '.status.readyReplicas')
+              READY_REPLICAS=$(oc get deployment central -n stackrox --output json | jq -r '.status.readyReplicas')
 
-              if [ -z "${ENV_VAR_CREATED}" ] || [ "${ENV_VAR_CREATED}" != "true" ] || [ -z "${DEP_READY_REPLICAS}" ] || [ "${DEP_READY_REPLICAS}" -lt 1 ]; then
+              echo $ROX_EXTERNAL_IPS $READY_REPLICAS
 
-                echo $ENV_VAR_CREATED $DEP_READY_REPLICAS
+              if [ "${ROX_EXTERNAL_IPS}" != "true" ] || [[ ! $READY_REPLICAS =~ ^[0-9]+$ ]] || [ "${READY_REPLICAS}" -lt 1 ]; then
 
                 sleep 10
 
