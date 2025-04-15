@@ -11,4 +11,4 @@ stringData:
       argo_customize_gitea_admin_user }}/{{ argo_customize_gitea_user_name_base }}{{ index }}-pipeline-gitops.git
   username: {{ argo_customize_gitea_admin_user }}
   password: {{ argo_customize_gitea_admin_password }}
-  project: default
+  project: {{ argo_customize_argo_user_name_base }}{{ index }}
