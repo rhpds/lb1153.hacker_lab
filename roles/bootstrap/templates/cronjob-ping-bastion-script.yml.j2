@@ -25,9 +25,9 @@ spec:
               - '-c'
               - |
 
-                ROX_EXTERNAL_IPS=$(oc get deployment central -n stackrox --output json | jq -r '.spec.template.spec.containers[] | select(.name=="central").env[] | select(.name=="ROX_EXTERNAL_IPS").value')
+                ROX_EXTERNAL_IPS=$(oc get deployment central -n {{ bootstrap_rhacs_namespace }} --output json | jq -r '.spec.template.spec.containers[] | select(.name=="central").env[] | select(.name=="ROX_EXTERNAL_IPS").value')
 
-                READY_REPLICAS=$(oc get deployment central -n stackrox --output json | jq -r '.status.readyReplicas')
+                READY_REPLICAS=$(oc get deployment central -n {{ bootstrap_rhacs_namespace }} --output json | jq -r '.status.readyReplicas')
 
                 echo ROX_EXTERNAL_IPS: \'$ROX_EXTERNAL_IPS\'
 
