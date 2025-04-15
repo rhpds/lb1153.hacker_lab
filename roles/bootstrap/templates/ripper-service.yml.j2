@@ -1,0 +1,16 @@
+[Unit]
+Description=Ripper Service
+Documentation=man:podman-generate-systemd(1)
+Wants=network.target
+After=network-online.target
+
+[Service]
+User=root
+Group=root
+ExecStart=/user/bin/podman-compose -f /root/compose.yml up -d
+ExecStop=/usr/bin/podman-compose down
+Restart=always
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target default.target
