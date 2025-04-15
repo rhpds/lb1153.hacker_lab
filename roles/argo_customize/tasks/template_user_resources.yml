@@ -11,9 +11,9 @@
   - argocd-customers-repo.yml.j2
   - argocd-customers-app.yml.j2
   - argocd-env-repo.yml.j2
-  - argocd-env-app.yaml.j2
+  - argocd-env-app.yml.j2
   - argocd-pipeline-repo.yml.j2
-  - argocd-pipeline-app.yaml.j2
+  - argocd-pipeline-app.yml.j2
 
 - name: Wait for Application to sync
   k8s_info:
