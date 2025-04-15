@@ -2,7 +2,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: {{ bootstrap_user_name_base }}{{ index }}-start-lab
+  name: {{ bootstrap_user_name_base }}{{ index }}-ping-bastion
 spec:
   schedule: "*/5 * * * *"
   concurrencyPolicy: Forbid
@@ -14,11 +14,11 @@ spec:
       template:
         metadata:
           labels:
-            cronjob: {{ bootstrap_user_name_base }}{{ index }}-start-lab
+            cronjob: {{ bootstrap_user_name_base }}{{ index }}-ping-bastion
         spec:
           restartPolicy: Never
           containers:
-          - name: start-lab
+          - name: ping-bastion
             image: registry.redhat.io/openshift4/ose-tools-rhel9@sha256:8037187950e7374a9c9bec4996033c9b24ce374920ef29047d4f63b4c20f3e6b
             command:
               - /bin/bash
