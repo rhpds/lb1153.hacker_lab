@@ -35,6 +35,8 @@ spec:
 
                 if [ "${ROX_EXTERNAL_IPS}" != "true" ] || [[ ! $READY_REPLICAS =~ ^[0-9]+$ ]] || [ "${READY_REPLICAS}" -lt 1 ]; then
 
+                  echo 'Stackrox not ready.  Exiting...'
+
                   exit 1
 
                 fi
