@@ -8,8 +8,11 @@
     index: "{{ n | int + 1 }}"
   loop:
   - argocd-project.yml.j2
+  - argocd-customers-repo.yml.j2
   - argocd-customers-app.yml.j2
+  - argocd-env-repo.yaml.j2
   - argocd-env-app.yaml.j2
+  - argocd-pipeline-repo.yaml.j2
   - argocd-pipeline-app.yaml.j2
 
 - name: Wait for Application to sync
