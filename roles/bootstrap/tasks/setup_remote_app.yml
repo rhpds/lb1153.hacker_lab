@@ -1,5 +1,5 @@
 ---
-  - name: Start podman container for remote ripper application
+  - name: Install podman compose and create compose file
     become: true
     ansible.builtin.shell: |
       dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
@@ -18,7 +18,7 @@
           restart: unless-stopped
       EOF
 
-  - name: Insert showroom orchestration files, compose, scripts, and systemd
+  - name: Create the ripper systemd service
     become: true
     ansible.builtin.template:
       src: ripper-service.yml.j2
@@ -27,7 +27,7 @@
       group: root
       mode: u=rw,g=r,o=r
 
-  - name: Enable and Start showroom service
+  - name: Enable ripper systemd service
     become: true
     ansible.builtin.service:
       name: ripper.service

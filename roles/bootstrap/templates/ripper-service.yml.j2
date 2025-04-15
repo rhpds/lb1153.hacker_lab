@@ -7,10 +7,10 @@ After=network-online.target
 [Service]
 User=root
 Group=root
-ExecStart=/user/bin/podman-compose -f /root/compose.yml up -d
-ExecStop=/usr/bin/podman-compose down
-Restart=always
-TimeoutStopSec=30
+ExecStart=/usr/bin/podman-compose -f /root/compose.yml up -d
+ExecStop=/usr/bin/podman-compose -f /root/compose.yml down
+Type=oneshot
+RemainAfterExit=yes
 
 [Install]
 WantedBy=multi-user.target default.target
