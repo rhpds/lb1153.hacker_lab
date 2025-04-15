@@ -1,6 +1,6 @@
-    JOB_SUCCEEDED=$(oc get job {{ argo_customize_gitea_user_name_base }}1-start-lab -n default --ignore-not-found=true --output json | jq -r '.status.succeeded')
+    SUCCEEDED_JOB=$(oc get job -l cronjob={{ argo_customize_gitea_user_name_base }}1-start-lab  -n default --ignore-not-found=true -o=jsonpath='{range .items[?(@.status.succeeded==1)]}{.metadata.name}{"\n"}{end}'
 
-    if [ "${JOB_SUCCEEDED}" == "1" ]; then
+    if [ ! -z "${SUCCEEDED_JOB}" ]; then
 
       CLUSTER_ID=$(curl -ks -u {{ argo_customize_stackrox_admin_user }}:{{ argo_customize_stackrox_admin_password }} https://{{
       argo_customize_stackrox_endpoint }}/v1/clusters | jq -r '.clusters[] | select(.name=="production").id')
