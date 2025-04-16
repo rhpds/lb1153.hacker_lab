@@ -1,4 +1,22 @@
 ---
+- name: Add user as a colaborator to pipeline gitops
+  uri:
+    url: "https://{{ gitea_customize_gitea_endpoint }}/api/v1/repos/{{ gitea_customize_gitea_admin_user }}/{{
+          gitea_customize_lab_username }}-pipeline-gitops/collaborators/{{ gitea_customize_lab_username }}
+    user: "{{ gitea_customize_gitea_admin_user }}"
+    password: "{{ gitea_customize_gitea_admin_password }}"
+    method: PUT
+    force_basic_auth: true
+    validate_certs: false
+    body_format: json
+    status_code: 204
+    headers:
+      Content-Type: application/json
+    body: >-
+      {
+      "permission": "read"
+      }
+
 - name: Clone env-gitops
   ansible.builtin.git:
     repo: https://{{ gitea_customize_gitea_admin_user }}:{{ gitea_customize_gitea_admin_password }}@{{
