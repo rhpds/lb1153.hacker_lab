@@ -1,7 +1,7 @@
 ---
-- name: Add {{ gitea_customize_lab_username }} as a colaborator to {{ gitea_customize_lab_username }}-pipeline-gitops
+- name: Add {{ gitea_customize_lab_username }} as a colaborator to {{ gitea_customize_lab_username }}-customers-gitops
   uri:
-    url: https://{{ gitea_customize_gitea_endpoint }}/api/v1/repos/{{ gitea_customize_gitea_admin_user }}/{{ gitea_customize_lab_username }}-pipeline-gitops/collaborators/{{ gitea_customize_lab_username }}
+    url: https://{{ gitea_customize_gitea_endpoint }}/api/v1/repos/{{ gitea_customize_gitea_admin_user }}/{{ gitea_customize_lab_username }}-customers-gitops/collaborators/{{ gitea_customize_lab_username }}
     user: "{{ gitea_customize_gitea_admin_user }}"
     password: "{{ gitea_customize_gitea_admin_password }}"
     method: PUT
