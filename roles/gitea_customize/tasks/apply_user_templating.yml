@@ -16,6 +16,10 @@
       {
       "permission": "read"
       }
+  retries: 6
+  delay: 10
+  register: r_add_collaborator
+  until: r_add_collaborator is not failed
 
 - name: Clone env-gitops
   ansible.builtin.git:
