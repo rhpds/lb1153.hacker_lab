@@ -6,10 +6,6 @@ metadata:
 spec:
   project: {{ argo_customize_argo_user_name_base }}{{ index }}
   source:
-    helm:
-      parameters:
-      - name: app.challenge_password
-        value: {{ argo_customize_lab_challenge_password }}
     repoURL: https://{{ argo_customize_gitea_endpoint }}/{{
       argo_customize_gitea_admin_user }}/{{ argo_customize_gitea_user_name_base }}{{ index }}-pipeline-gitops.git
     targetRevision: HEAD

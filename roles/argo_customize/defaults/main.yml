@@ -11,4 +11,3 @@ argo_customize_argo_user_password: "{{ common_password }}"
 argo_customize_stackrox_namespace: stackrox
 argo_customize_stackrox_admin_user: gitea
 argo_customize_stackrox_admin_password: "{{ common_password }}"
-argo_customize_lab_challenge_password: Z9YagGvef1716QFZdVff9MF9iOpd5RCS4Ct3AwOzWsp3sesxkYIYl0QtEPv2Zhzd
